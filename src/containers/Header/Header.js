@@ -2,16 +2,19 @@ import React from 'react';
 import { Grid, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import TabBar from '../../components/TabBar/TabBar'
-import HeaderImage from "../../assets/images/header.jpg";
+import HeaderImage from "../../assets/images/header3.jpg";
 
 const useStyles = makeStyles(() => ({
   root: {
-    backgroundImage: `linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.4)), url(${HeaderImage})`,
-    backgroundPosition: "center center",
+    backgroundImage: `linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.4)), url(${HeaderImage})`,
+   // backgroundImage: `url(${HeaderImage})`,
+    backgroundPosition: "top center",
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
     backgroundAttachment: "fixed",
     height: "100vh",
+    position: "absolute",
+    zIndex:"-1"
   },
   padding: {
     paddingTop: "16px",
@@ -38,7 +41,7 @@ const Header = (props) => {
         <Grid
           item
           xl={12}
-          style={{ position: "absolute", left: "50px", top: "130px" }}
+          style={{ position: "absolute", left: "70px", top: "250px" }}
         >
           <Typography component="span" style={{color:"white"}} variant="h1">
             Relecota Buraya slogan gelecek
@@ -47,9 +50,9 @@ const Header = (props) => {
         <Grid
           item
           xl={4}
-          style={{ position: "absolute", left: "50px", top: "250px" }}
+          style={{ position: "absolute", left: "70px", top: "400px" }}
         >
-          <Typography variant="h2"  style={{color:"white"}}>Alt başlık</Typography>
+          <Typography variant="h2"  style={{color:"white"}}>Alt başlık gelecek</Typography>
         </Grid>
       </Grid>
 

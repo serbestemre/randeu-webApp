@@ -2,13 +2,14 @@ import React from 'react';
 import { AppBar, Toolbar, Typography} from '@material-ui/core';
 import {makeStyles} from '@material-ui/styles';
 import {Grid} from '@material-ui/core';
-import Logo from '../../../assets/images/logo.svg';
+import Logo from '../../../assets/images/randeu-02.svg';
 import { CardMedia } from '@material-ui/core';
 import Link from '../Link/Link';
 
 const useStyles = makeStyles (() => ({
   typographyStyles: {
     flex:1,
+    zIndex: "2"
   },
   media: {
     height: "80px",
