@@ -1,6 +1,7 @@
 import React from 'react';
 import { AppBar, Toolbar, Typography} from '@material-ui/core';
 import {makeStyles} from '@material-ui/styles';
+import {Grid} from '@material-ui/core';
 import Logo from '../../../assets/images/logo.svg';
 import { CardMedia } from '@material-ui/core';
 import Link from '../Link/Link';
@@ -26,26 +27,30 @@ const links = [
 
 const Header = () => {
   const classes = useStyles();
-  return <AppBar position="static">
-    <Toolbar>
-      <Typography component={"span"} className={classes.typographyStyles}>
-        <CardMedia
-          className={classes.media}
-          image={Logo}
-          title="Randeu"
-        />
-      </Typography>
+  return (
+    <Grid item>
+      <AppBar position="static">
+        <Toolbar>
+          <Typography component={"span"} className={classes.typographyStyles}>
+            <CardMedia
+              className={classes.media}
+              image={Logo}
+              title="Randeu"
+            />
+          </Typography>
 
-      {links.map(link => (
-        <Link
-          key={link.id}
-          title={link.title}
-          target={link.target}
-          />
-      ))}
+          {links.map(link => (
+            <Link
+              key={link.id}
+              title={link.title}
+              target={link.target}
+            />
+          ))}
 
-    </Toolbar>
-  </AppBar>
+        </Toolbar>
+      </AppBar>
+    </Grid>
+  )
 };
 
 export default Header;
