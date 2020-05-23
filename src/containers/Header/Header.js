@@ -12,9 +12,8 @@ const useStyles = makeStyles(() => ({
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
     backgroundAttachment: "fixed",
-    height: "100vh",
-    position: "absolute",
-    zIndex:"-1"
+    height: "92vh",
+
   },
   padding: {
     paddingTop: "16px",

@@ -9,7 +9,6 @@ import Link from '../Link/Link';
 const useStyles = makeStyles (() => ({
   typographyStyles: {
     flex:1,
-    zIndex: "2"
   },
   media: {
     height: "80px",
