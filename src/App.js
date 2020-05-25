@@ -1,21 +1,14 @@
-import React from 'react';
-import { Grid } from "@material-ui/core";
-import NavBar from './components/Navigation/NavBar/NavBar';
-import Header from './containers/Header/Header';
-import Features from './containers/Features/Features';
-import Sectors from './containers/Sectors/Sectors';
-import Footer from './containers/Footer/Footer';
+import React from "react";
 
-const App = () =>  {
-    return (
-      <Grid container direction="column">
-        <NavBar/>
-        <Header/>
-        <Features/>
-        <Sectors/>
-        <Footer/> 
-      </Grid>
-    );
+import Landing from "./pages/Landing/Landing";
+import Layout from "./hoc/Layout/Layout";
+
+const App = () => {
+  return (
+    <Layout>
+      <Landing />
+    </Layout>
+  );
 };
 
 export default App;
