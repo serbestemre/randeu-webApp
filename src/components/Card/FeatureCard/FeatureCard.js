@@ -13,7 +13,7 @@ const FeatureCard = (props) => {
 
   const useStyles = makeStyles((theme) => ({
     root: {
-      backgroundColor:theme.palette.primary.light,
+      backgroundColor:theme.palette.primary.contrastText,
       padding:"16px",
       color: theme.palette.secondary.main,
       fontSize: "40px"

@@ -9,6 +9,8 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import {fade} from "@material-ui/core/styles/colorManipulator";
 import TabForm from './TabForm/TabFrom';
+import { useTheme } from "@material-ui/core/styles";
+
 
 function TabPanel(props) {
   const {children, value, index, ...other} = props;
@@ -74,7 +76,8 @@ export default function SimpleTabs() {
   const classes = useStyles();
   const [value, setValue] = useState(0);
   const [list, setList] = useState(serviceList);
-
+  const theme = useTheme();
+  
   const handleChange = (event, newValue) => {
     console.log("new value=> ", newValue);
     switch (newValue) {
@@ -97,7 +100,8 @@ export default function SimpleTabs() {
     <Grid container xl={12} justify="center" alignItems={"center"}>
       <Grid item sm={8} xl={10}>
         <div className={classes.root}>
-          <AppBar position="static">
+          {/* Search Bar Color Preferences */}
+          <AppBar position="static" style={{ backgroundColor: `${theme.palette.primary.contrastText}`, color:`${theme.palette.secondary.main}`}}>
             <Tabs
               value={value}
               onChange={handleChange}
