@@ -2,12 +2,17 @@ import React from "react";
 
 import Landing from "./pages/Landing/Landing";
 import Layout from "./hoc/Layout/Layout";
+import Login from "./pages/Login/Login";
+import Auxiliary from "./hoc/Auxiliary/Auxiliary";
 
 const App = () => {
   return (
-    <Layout>
-      <Landing />
+   <Auxiliary>
+      <Layout>
+     <Landing /> 
     </Layout>
+    <Login/>
+   </Auxiliary>
   );
 };
 
