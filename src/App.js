@@ -4,6 +4,8 @@ import NavBar from './components/Navigation/NavBar/NavBar';
 import Header from './containers/Header/Header';
 import Features from './containers/Features/Features';
 import Sectors from './containers/Sectors/Sectors';
+import Footer from './containers/Footer/Footer';
+
 const App = () =>  {
     return (
       <Grid container direction="column">
@@ -11,6 +13,7 @@ const App = () =>  {
         <Header/>
         <Features/>
         <Sectors/>
+        <Footer/> 
       </Grid>
     );
 };
