@@ -35,15 +35,16 @@ const theme = createMuiTheme({
   typography: {
     h1: {
       fontFamily: "Recoleta",
-      fontWeight:"300"
+      fontWeight: "300",
     },
     h2: {
       fontFamily: "Poppins",
     },
     h3: {
       fontFamily: "Lato",
-      fontWeight: "300"
+      fontWeight: "300",
     },
+
   },
   overrides: {
     MuiCssBaseline: {
@@ -51,6 +52,7 @@ const theme = createMuiTheme({
         "@font-face": [publicSans],
       },
     },
+
   },
 });
 

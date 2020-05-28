@@ -11,22 +11,14 @@ import Button from "@material-ui/core/Button";
 import AndroidIcon from "@material-ui/icons/Android";
 import AppleIcon from "@material-ui/icons/Apple";
 import { makeStyles } from "@material-ui/styles";
-import HeaderPicture from "../../assets/images/header3.jpg";
 
 const footer = (props) => {
-    const theme = useTheme();
+  const theme = useTheme();
 
-  const useStyles = makeStyles(() => ({
-    root: {
-      backgroundImage: `linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.4)), url(${HeaderPicture})`,
-      backgroundPosition: "center center",
-      backgroundSize: "cover",
-      backgroundRepeat: "no-repeat",
-      backgroundAttachment: "fixed",
-      height: "100vh",
-    },
-    padding: {
-      paddingTop: "16px",
+  const useStyles = makeStyles((theme) => ({
+    button: {
+      backgroundColor: `${theme.palette.secondary.contrastText}`,
+      color: `${theme.palette.secondary.main}`,
     },
   }));
   const classes = useStyles();
@@ -40,64 +32,68 @@ const footer = (props) => {
       }}
     >
       <Grid item sm={4}>
-     <Grid item>
-     <Link
-          component="button"
-          variant="body2"
-          onClick={() => {
-            console.info("I'm a button.");
-          }}
-        >
-          Anasayfa
-        </Link>
-     </Grid>
-     <Grid item>
-     <Link
-          component="button"
-          variant="body2"
-          onClick={() => {
-            console.info("I'm a button.");
-          }}
-        >
-          Hakkımızda
-        </Link>
-     </Grid>
-     <Grid item>
-     <Link
-          component="button"
-          variant="body2"
-          onClick={() => {
-            console.info("I'm a button.");
-          }}
-        >
+        <Grid item>
+          <Link
+            style={{ color: `${theme.palette.secondary.contrastText}` }}
+            component="button"
+            variant="body1"
+            onClick={() => {
+              console.info("I'm a button.");
+            }}
+          >
+            Anasayfa
+          </Link>
+        </Grid>
+        <Grid item>
+          <Link
+            style={{ color: `${theme.palette.secondary.contrastText}` }}
+            component="button"
+            variant="body1"
+            onClick={() => {
+              console.info("I'm a button.");
+            }}
+          >
+            Hakkımızda
+          </Link>
+        </Grid>
+        <Grid item>
+          <Link
+            style={{ color: `${theme.palette.secondary.contrastText}` }}
+            component="button"
+            variant="body1"
+            onClick={() => {
+              console.info("I'm a button.");
+            }}
+          >
             İşletmeler
-        </Link>
-     </Grid>
-    
+          </Link>
+        </Grid>
       </Grid>
       <Grid item sm={4}>
-      <Grid item>
-     <Link
-          component="button"
-          variant="body2"
-          onClick={() => {
-            console.info("I'm a button.");
-          }}
-        >
+        <Grid item>
+          <Link
+            style={{ color: `${theme.palette.secondary.contrastText}` }}
+            component="button"
+            variant="body1"
+            onClick={() => {
+              console.info("I'm a button.");
+            }}
+          >
             Randevu Sistemi
-        </Link>
-     </Grid >
-     <Grid item>
-     <Link
-          component="button"
-          variant="body2"
-          onClick={() => {
-            console.info("I'm a button.");
-          }}
-        >
+          </Link>
+        </Grid>
+        <Grid item>
+          <Link
+            style={{ color: `${theme.palette.secondary.contrastText}` }}
+            component="button"
+            variant="body1"
+            onClick={() => {
+              console.info("I'm a button.");
+            }}
+          >
             Ücretler ve Abonelik
-        </Link>
-     </Grid>
+          </Link>
+        </Grid>
       </Grid>
       <Grid container justify="space-between" alignItems="flex-end" sm={4}>
         <Grid item>
