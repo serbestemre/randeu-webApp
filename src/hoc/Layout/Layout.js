@@ -6,7 +6,7 @@ import Footer from "../../containers/Footer/Footer";
 const layout = (props) => {
   return (
     <Grid container direction="column">
-      <NavBar />
+      <NavBar/>
       {props.children}
       <Footer />
     </Grid>

@@ -6,7 +6,7 @@ import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
 import Auxiliary from "./hoc/Auxiliary/Auxiliary";
 import AboutUs from './pages/AboutUs/AboutUs';
-const App = () => {
+const App = (props) => {
   return (
    <Auxiliary>
     <Switch>
