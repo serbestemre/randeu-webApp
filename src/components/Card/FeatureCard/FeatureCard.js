@@ -9,11 +9,11 @@ import Avatar from '@material-ui/core/Avatar';
 
 const FeatureCard = (props) => {
 
-  const {title, contentText, icon, maxWidth} = props;
+  const {title, contentText, icon} = props;
 
   const useStyles = makeStyles((theme) => ({
     root: {
-      backgroundColor:theme.palette.primary.contrastText,
+      backgroundColor:"#fff",
       padding:"16px",
       color: theme.palette.secondary.main,
       fontSize: "40px"
@@ -30,8 +30,8 @@ const FeatureCard = (props) => {
   const classes = useStyles();
 
   return (
-    <Grid container item justify="center"  xs={12} sm={12} md={3}>
-      <Card className={classes.root} style={{maxWidth: maxWidth}}>
+    <Grid container item justify="center"  xs={12} sm={10} md={3} xl={4}>
+      <Card className={classes.root} elevation={0}>
         <CardHeader
           avatar={
             <Avatar className={classes.avatar}>{icon}</Avatar>
