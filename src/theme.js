@@ -1,4 +1,4 @@
-import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import { createMuiTheme } from "@material-ui/core/styles";
 import PublicSans from "./assets/fonts/PublicSans-VariableFont_wght.ttf";
 
 const publicSans = {
@@ -56,19 +56,20 @@ const theme = createMuiTheme({
     },
     MuiListItem:{
       root:{
-        "&$selected": {       // this is to refer to the prop provided by M-UI
+          color:secondaryColor.main, 
+        "&$selected": {    
+          color:secondaryColor.main, 
           backgroundColor: "transparent",
-          borderBottom: `2px solid ${primaryColor.main}`,
+          borderBottom: `1px solid ${primaryColor.main}`,
       
         },
-        display:"inline-block",
       },
       
       button:{
         color: secondaryColor.main,
         "&:hover":{
           backgroundColor: "transparent",
-          borderBottom: `2px solid ${primaryColor.main}`,
+          borderBottom: `1px solid ${primaryColor.main}`,
         }
       }
     },

@@ -1,19 +1,16 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
+import MenuItem from "@material-ui/core/MenuItem";
 import { AppBar, Toolbar, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import { Grid, MenuList, useMediaQuery } from "@material-ui/core";
-import Logo from "../../../assets/images/randeu-04.svg";
-import { CardMedia } from "@material-ui/core";
+// import Logo from "../../../assets/images/randeu-04.svg";
+import Collapse from "../../UI/Collapse/Collapse";
 
 const useStyles = makeStyles(() => ({
-  MuiListItem:{
-      color:"black",
-      display:"inline-block"
-   
-  },  
+  MuiListItem: {
+    display: "inline-block",
+  },
   typographyStyles: {
     flex: 1,
   },
@@ -33,35 +30,42 @@ const links = [
 ];
 
 const navBar = (props) => {
-  const {location:{pathname}} = props;
-  console.log("path: ", pathname);
-  console.log(`${links[0].target}` === `${pathname}`);
-  const isMobileScreen = useMediaQuery("(min-width:600px)")
+  const {
+    location: { pathname },
+  } = props;
+  
+  const isMobileScreen = useMediaQuery("(min-width:700px)");
   const classes = useStyles();
 
-let navigatorMenu = links.map((link) => (
-  <MenuItem  key={link.id} component={Link} to={link.target} selected={`${link.target}` === `${pathname}`}>{link.title}</MenuItem>
-))
+  let navigatorMenu = links.map((link) => (
+    <MenuItem
+      className={classes.MuiListItem}
+      key={link.id}
+      component={Link}
+      to={link.target}
+      selected={`${link.target}` === `${pathname}`}
+    >
+      {link.title}
+    </MenuItem>
+  ));
 
-if(isMobileScreen){
-// TODO Hamburger Menu
-}
+  if (!isMobileScreen) {
+    navigatorMenu = <Collapse menuList={links}/>;
+  }
 
   return (
     <Grid item>
       <AppBar position="static" style={{ backgroundColor: "#fafafb" }}>
         <Toolbar>
-          <Typography component={"span"} className={classes.typographyStyles}>
-            <CardMedia className={classes.media} image={Logo} title="Randeu" />
+          <Typography component={"span"} className={classes.typographyStyles} color="primary" style={{ fontFamily: "Lato", fontSize:"xx-large" }}>
+            {/* <CardMedia className={classes.media} image={Logo} title="Randeu" /> */}
+            randeU
           </Typography>
-          <MenuList>
-          {navigatorMenu}
-          </MenuList>
-      
+          <MenuList>{navigatorMenu}</MenuList>
         </Toolbar>
       </AppBar>
     </Grid>
   );
 };
 
-export default withRouter(navBar) ;
+export default withRouter(navBar);
