@@ -79,7 +79,6 @@ export default function SimpleTabs() {
   const theme = useTheme();
   
   const handleChange = (event, newValue) => {
-    console.log("new value=> ", newValue);
     switch (newValue) {
       case 0:
         setList(serviceList);
@@ -106,19 +105,20 @@ export default function SimpleTabs() {
               value={value}
               onChange={handleChange}
               aria-label="simple tabs example"
+              variant="scrollable"
+              scrollButtons="auto"
             >
-            <Grid item xs={4}>
+  
             <Tab className={classes.tabRoot}
                    label="HİZMET TİPİ" id={"tab1"} aria-controls="aria-tab1"/>
-            </Grid>
-            <Grid item xs={4}>
+   
             <Tab className={classes.tabRoot}
                    label="İŞYERİ TÜRÜ" id={"tab2"} aria-controls="aria-tab2"/>
-            </Grid>
-            <Grid item xs={4}>
+       
+    
             <Tab className={classes.tabRoot}
                    label="İŞYERİ ADI" id={"tab3"} aria-controls="aria-tab3"/>
-            </Grid>
+            
             </Tabs>
           </AppBar>
 

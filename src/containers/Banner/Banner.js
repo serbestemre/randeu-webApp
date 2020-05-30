@@ -1,7 +1,6 @@
 import React from "react";
 import { Grid, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
-import TabBar from "../../components/TabBar/TabBar";
 import HeaderImage from "../../assets/images/header3.jpg";
 
 const useStyles = makeStyles(() => ({

@@ -95,7 +95,7 @@ const footer = (props) => {
           </Link>
         </Grid>
       </Grid>
-      <Grid container justify="space-between" alignItems="flex-end" sm={4}>
+      <Grid container justify="space-between" alignItems="flex-end">
         <Grid item>
           <IconButton aria-label="facebook" style={{ color: "white" }}>
             <FacebookIcon />
