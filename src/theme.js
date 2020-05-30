@@ -1,4 +1,4 @@
-import { createMuiTheme } from "@material-ui/core/styles";
+import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
 import PublicSans from "./assets/fonts/PublicSans-VariableFont_wght.ttf";
 
 const publicSans = {
@@ -29,7 +29,8 @@ const secondaryColor ={
     contrastText: "#fff",
 }
 
-const theme = createMuiTheme({
+
+let theme = createMuiTheme({
   palette: {
     primary: primaryColor,
     secondary: secondaryColor
@@ -77,5 +78,8 @@ const theme = createMuiTheme({
 
   },
 });
+
+theme = responsiveFontSizes(theme);
+
 
 export default theme;

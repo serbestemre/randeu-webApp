@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/styles";
 import TabBar from '../../components/TabBar/TabBar'
 import HeaderImage from "../../assets/images/header3.jpg";
 
+
 const useStyles = makeStyles(() => ({
   root: {
     backgroundImage: `linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.4)), url(${HeaderImage})`,
@@ -20,7 +21,9 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
+
 const Header = (props) => {
+
   const classes = useStyles();
   return (
     <Grid
