@@ -97,8 +97,8 @@ export default function SimpleTabs() {
   };
 
   return (
-    <Grid container xl={12} justify="center" alignItems={"center"}>
-      <Grid item sm={8} xl={10}>
+    <Grid container justify="center" alignItems={"center"}>
+      <Grid item sm={10}md={12} xl={10}>
         <div className={classes.root}>
           {/* Search Bar Color Preferences */}
           <AppBar position="static" style={{ backgroundColor: `${theme.palette.primary.contrastText}`, color:`${theme.palette.secondary.main}`}}>
@@ -107,12 +107,18 @@ export default function SimpleTabs() {
               onChange={handleChange}
               aria-label="simple tabs example"
             >
-              <Tab className={classes.tabRoot}
+            <Grid item xs={4}>
+            <Tab className={classes.tabRoot}
                    label="HİZMET TİPİ" id={"tab1"} aria-controls="aria-tab1"/>
-              <Tab className={classes.tabRoot}
+            </Grid>
+            <Grid item xs={4}>
+            <Tab className={classes.tabRoot}
                    label="İŞYERİ TÜRÜ" id={"tab2"} aria-controls="aria-tab2"/>
-              <Tab className={classes.tabRoot}
+            </Grid>
+            <Grid item xs={4}>
+            <Tab className={classes.tabRoot}
                    label="İŞYERİ ADI" id={"tab3"} aria-controls="aria-tab3"/>
+            </Grid>
             </Tabs>
           </AppBar>
 

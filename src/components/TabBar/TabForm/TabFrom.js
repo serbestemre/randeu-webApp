@@ -25,8 +25,8 @@ const TabForm = (props) => {
   const {list, textFieldPlaceholder} = props;
   return (
     <form className={classes.root} noValidate autoComplete="off">
-      <Grid container item spacing={2}>
-        <Grid item xs={2} sm={6}>
+      <Grid container item spacing={2} xs={12} sm={12}>
+        <Grid item xs={12} sm={6}  md={5}>
           <Autocomplete
             id="combo-box-demo"
             options={list}
@@ -41,7 +41,7 @@ const TabForm = (props) => {
           />
         </Grid>
 
-        <Grid item xs={8} sm={3}>
+        <Grid item xs={12} sm={6} md={5}>
           <Autocomplete
             className={classes.root}
             id="combo-box-demo"
@@ -57,7 +57,7 @@ const TabForm = (props) => {
           />
         </Grid>
 
-        <Grid container item sm={3} alignItems={"center"}>
+        <Grid container item sm={12}md={2} alignItems={"center"}>
           <Button
             variant="contained"
             color="secondary"
