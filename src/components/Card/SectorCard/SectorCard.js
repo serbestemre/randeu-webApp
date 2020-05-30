@@ -8,18 +8,38 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import {Grid} from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import ListItemText from '@material-ui/core/ListItemText';
+import Avatar from '@material-ui/core/Avatar';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import Icon from '@material-ui/core/Icon';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 345,
+    '& > span': {
+      margin: theme.spacing(2),
+    },
   },
-});
+}));
+
+function generate(element) {
+  return [0, 1, 2].map((value) =>
+    React.cloneElement(element, {
+      key: value,
+    }),
+  );
+}
+
 
 export default function ImgMediaCard(props) {
   const classes = useStyles();
 
   return (
-    <Grid item sm={3}>
+    <Grid item sm={3} xl={4}>
       <Card className={classes.root}>
         <CardActionArea>
           <CardMedia
@@ -37,14 +57,29 @@ export default function ImgMediaCard(props) {
               Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
               across all continents except Antarctica
             </Typography>
+            <div className={classes.demo}>
+            <List dense>
+              {generate(
+                <ListItem>
+                  <ListItemAvatar>
+                    <Avatar>
+                      <FavoriteIcon size="small" />
+                    </Avatar>
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary="Single-line item"
+                  
+                  />
+                </ListItem>,
+              )}
+            </List>
+          </div>
+ 
           </CardContent>
         </CardActionArea>
         <CardActions>
           <Button size="small" color="primary">
-            Share
-          </Button>
-          <Button size="small" color="primary">
-            Learn More
+            Detaylar
           </Button>
         </CardActions>
       </Card>

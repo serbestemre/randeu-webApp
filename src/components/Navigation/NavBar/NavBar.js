@@ -44,6 +44,8 @@ const navBar = (props) => {
       component={Link}
       to={link.target}
       selected={`${link.target}` === `${pathname}`}
+      disableRipple
+      disableElevation
     >
       {link.title}
     </MenuItem>

@@ -1,7 +1,6 @@
 import React from "react";
-
-import Link from "@material-ui/core/Link";
-import { Grid } from "@material-ui/core";
+import { Link } from "react-router-dom";
+import { Grid, MenuList, Typography } from "@material-ui/core";
 import { useTheme } from "@material-ui/core/styles";
 import FacebookIcon from "@material-ui/icons/Facebook";
 import IconButton from "@material-ui/core/IconButton";
@@ -11,11 +10,37 @@ import Button from "@material-ui/core/Button";
 import AndroidIcon from "@material-ui/icons/Android";
 import AppleIcon from "@material-ui/icons/Apple";
 import { makeStyles } from "@material-ui/styles";
+import MenuItem from "@material-ui/core/MenuItem";
 
 const footer = (props) => {
   const theme = useTheme();
 
+  const links = [
+    { id: 1, title: "Anasayfa", target: "/" },
+    { id: 2, title: "Hakkımızda", target: "/hakkimizda" },
+    // { id: 3, title: "İŞLETMELER", target: "#" },
+    { id: 4, title: "Kayıt Ol", target: "/kullanici/kayit" },
+    { id: 5, title: "Giriş Yap", target: "/kullanici/giris" },
+  ];
+
+  const links2 = [
+    { id: 1, title: "Randevu Sistemi", target: "#" },
+    { id: 2, title: "Ücretler ve Abonelik", target: "#" },
+  ];
+
   const useStyles = makeStyles((theme) => ({
+    MuiListItem: {
+      color: "white",
+      display: "block",
+      maxWidth: "max-content",
+    },
+    typographyStyles: {
+      flex: 1,
+    },
+    media: {
+      height: "80px",
+      width: "130px",
+    },
     button: {
       backgroundColor: `${theme.palette.secondary.contrastText}`,
       color: `${theme.palette.secondary.main}`,
@@ -28,74 +53,47 @@ const footer = (props) => {
       container
       style={{
         backgroundColor: `${theme.palette.secondary.dark}`,
-        padding: "24px",
+        padding: "16px",
+        minHeight: "30vh",
       }}
     >
       <Grid item sm={4}>
-        <Grid item>
-          <Link
-            style={{ color: `${theme.palette.secondary.contrastText}` }}
-            component="button"
-            variant="body1"
-            onClick={() => {
-              console.info("I'm a button.");
-            }}
-          >
-            Anasayfa
-          </Link>
-        </Grid>
-        <Grid item>
-          <Link
-            style={{ color: `${theme.palette.secondary.contrastText}` }}
-            component="button"
-            variant="body1"
-            onClick={() => {
-              console.info("I'm a button.");
-            }}
-          >
-            Hakkımızda
-          </Link>
-        </Grid>
-        <Grid item>
-          <Link
-            style={{ color: `${theme.palette.secondary.contrastText}` }}
-            component="button"
-            variant="body1"
-            onClick={() => {
-              console.info("I'm a button.");
-            }}
-          >
-            İşletmeler
-          </Link>
-        </Grid>
+        <MenuList>
+          {links.map((link) => (
+            <MenuItem
+            disableGutters
+              key={link.id}
+              component={Link}
+              to={link.target}
+              className={classes.MuiListItem}
+              align="left"
+              disableRipple
+              disableElevation
+            >
+              {link.title}
+            </MenuItem>
+          ))}
+        </MenuList>
       </Grid>
       <Grid item sm={4}>
-        <Grid item>
-          <Link
-            style={{ color: `${theme.palette.secondary.contrastText}` }}
-            component="button"
-            variant="body1"
-            onClick={() => {
-              console.info("I'm a button.");
-            }}
-          >
-            Randevu Sistemi
-          </Link>
-        </Grid>
-        <Grid item>
-          <Link
-            style={{ color: `${theme.palette.secondary.contrastText}` }}
-            component="button"
-            variant="body1"
-            onClick={() => {
-              console.info("I'm a button.");
-            }}
-          >
-            Ücretler ve Abonelik
-          </Link>
-        </Grid>
+      <MenuList>
+          {links2.map((link) => (
+            <MenuItem
+            disableGutters
+              key={link.id}
+              component={Link}
+              to={link.target}
+              className={classes.MuiListItem}
+              align="left"
+              disableRipple
+              disableElevation
+            >
+              {link.title}
+            </MenuItem>
+          ))}
+        </MenuList>
       </Grid>
-      <Grid container justify="space-between" alignItems="flex-end">
+      <Grid container justify="space-between" alignItems="flex-end" sm={4}>
         <Grid item>
           <IconButton aria-label="facebook" style={{ color: "white" }}>
             <FacebookIcon />
@@ -117,8 +115,8 @@ const footer = (props) => {
             <Grid item>
               <Button
                 variant="contained"
-                size="small"
                 className={classes.button}
+                fullWidth
                 startIcon={<AndroidIcon />}
               >
                 Get Android App
@@ -127,7 +125,7 @@ const footer = (props) => {
             <Grid item>
               <Button
                 variant="contained"
-                size="small"
+                fullWidth
                 className={classes.button}
                 startIcon={<AppleIcon />}
               >

@@ -31,12 +31,12 @@ const secondaryColor = {
 
 let theme = createMuiTheme({
   palette: {
-    primary: primaryColor,
-    secondary: secondaryColor,
+    primary: { ...primaryColor },
+    secondary: { ...secondaryColor },
   },
   typography: {
     h1: {
-      fontFamily: "Recoleta",
+      fontFamily: "Roboto",
       fontWeight: "300",
     },
     h2: {
