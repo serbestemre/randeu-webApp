@@ -18,7 +18,7 @@ return (
     }}
     justify={"center"}
   >
-    <Typography gutterBottom variant="h3">
+    <Typography gutterBottom variant="h2">
       {title}
     </Typography>
       <Grid item xs={12} md={8} xl={6}>

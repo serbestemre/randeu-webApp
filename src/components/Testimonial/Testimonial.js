@@ -11,14 +11,15 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(1),
       },
     },
-    small: {
-      width: theme.spacing(3),
-      height: theme.spacing(3),
-    },
-    large: {
+    image:{
       width: theme.spacing(20),
       height: theme.spacing(20),
-    },
+      [theme.breakpoints.down("sm")]: {
+        width: theme.spacing(15),
+         height: theme.spacing(15),
+      },
+    }
+  
   }));
   
   
@@ -27,16 +28,16 @@ const useStyles = makeStyles((theme) => ({
       
       const classes = useStyles();
     return (
-        <Grid container item direction="row" md={4}>
-          <Grid item md={5} align="center">
+        <Grid container item  direction="row" md={4} xl={4}>
+          <Grid item xs={4} sm={6} md={6} xl={6} align="center">
             {" "}
             <Avatar
               alt="Remy Sharp"
               src={businessImage}
-              className={classes.large}
+              className={classes.image}
             />
           </Grid>
-          <Grid container item md={6} direction="column" justify="center">
+          <Grid container item xs={8} sm={6} md={6} xl={6} direction="column" justify="center">
               <Grid item>
     <Typography variant="body2" gutterBottom>{text}</Typography>
               </Grid>
