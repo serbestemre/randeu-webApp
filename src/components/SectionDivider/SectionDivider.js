@@ -22,7 +22,7 @@ return (
       {title}
     </Typography>
       <Grid item xs={12} md={8} xl={6}>
-        <Typography gutterBottom component="p" variant="h6" color="textPrimary" align="center">
+        <Typography gutterBottom component="p" variant="h5" color="textPrimary" align="center">
           {paragraph}
         </Typography>
       </Grid>

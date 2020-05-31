@@ -100,7 +100,7 @@ export default function SimpleTabs() {
       <Grid item sm={10}md={12} xl={10}>
         <div className={classes.root}>
           {/* Search Bar Color Preferences */}
-          <AppBar position="static" style={{ backgroundColor: `${theme.palette.primary.contrastText}`, color:`${theme.palette.secondary.main}`}}>
+          <AppBar position="static" style={{backgroundColor: `${theme.palette.primary.contrastText}`, color:`${theme.palette.secondary.main}`}}>
             <Tabs
               value={value}
               onChange={handleChange}

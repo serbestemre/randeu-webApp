@@ -17,7 +17,7 @@ const TabForm = (props) => {
   const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
-      backgroundColor: "transparent",
+      backgroundColor: "transparent"
     },
   }));
 
@@ -25,7 +25,7 @@ const TabForm = (props) => {
   const {list, textFieldPlaceholder} = props;
   return (
     <form className={classes.root} noValidate autoComplete="off">
-      <Grid container item spacing={2} xs={12} sm={12}>
+      <Grid container item spacing={1} xs={12} sm={12}>
         <Grid item xs={12} sm={6}  md={5}>
           <Autocomplete
             id="combo-box-demo"

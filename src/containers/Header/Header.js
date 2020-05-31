@@ -6,41 +6,14 @@ import HeaderImage from "../../assets/images/header3.jpg";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    backgroundImage: `linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.4)), url(${HeaderImage})`,
+    backgroundImage: `linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(${HeaderImage})`,
     // backgroundImage: `url(${HeaderImage})`,
     backgroundPosition: "top center",
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
     backgroundAttachment: "fixed",
     height: "92vh",
-  },
-  padding: {
-    paddingTop: "16px",
-  },
-  mainTitle: {
-    position: "absolute",
-    left: "70px",
-    top: "150px",
-    [theme.breakpoints.down("md")]: {
-      fontSize: "70px",
-    },
-    [theme.breakpoints.down("sm")]: {
-      fontSize: "50px",
-    },
-    [theme.breakpoints.down("xs")]: {
-      display: "none",
-    },
-  },
-  subTitle: {
-    position: "absolute",
-    left: "70px",
-    top: "300px",
-    [theme.breakpoints.down("sm")]: {
-      fontSize: "40px",
-    },
-    [theme.breakpoints.down("xs")]: {
-      display: "none",
-    },
+    color: "white",
   },
 }));
 
@@ -52,38 +25,29 @@ const Header = (props) => {
       className={classes.root}
       item
       direction={"row"}
-      justify={"flex-start"}
+      justify={"center"}
       alignItems={"center"}
+      alignContent={"center"}
     >
       <Grid
         container
-        direction={"row"}
-        alignItems={"center"}
-        stlye={{ position: "relative" }}
+        item
+        direction={"column"}
+        justify={"center"}
+        alignItems={"flex-start"}
+        style={{ paddingLeft: "10%" }}
       >
-        <Grid item md={10}>
-          <Typography
-            className={classes.mainTitle}
-            component="span"
-            style={{ color: "white" }}
-            variant="h1"
-          >
-            Relecota Buraya slogan gelecek
-          </Typography>
-        </Grid>
-        <Grid item xl={4}>
-          <Typography
-            className={classes.subTitle}
-            variant="h2"
-            style={{ color: "white" }}
-          >
-            Alt başlık gelecek
-          </Typography>
-        </Grid>
+        <Typography variant="h1" gutterBottom style={{ display: "block" }}>
+         Buraya Randeu Slogan gelecek
+        </Typography>
+
+        <Typography variant="h2" gutterBottom>
+          Alt başlık gelecek
+        </Typography>
       </Grid>
 
       <Grid container justify={"center"} alignItems={"center"}>
-        <Grid item xs={10} sm={10} md={8}>
+        <Grid item xs={10} sm={10} md={6}>
           <TabBar />
         </Grid>
       </Grid>
