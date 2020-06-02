@@ -53,8 +53,14 @@ const header = (props) => {
   // }, [])
 
   useEffect(() => {
-    props.onInitBusinessTypes();
+    props.onInitBusinessTypesList();
   },[])
+
+  useEffect(() => {
+    props.onInitServicesList();
+  },[])
+
+
 
 
   return (
@@ -86,7 +92,7 @@ const header = (props) => {
 
       <Grid container justify={"center"} alignItems={"center"}>
         <Grid item xs={10} sm={10} md={6}>
-          <TabBar businessTypes={props.businessTypes} />
+          <TabBar businessTypes={props.businessTypesList} services={props.servicesList} />
         </Grid>
       </Grid>
     </Grid>
@@ -96,13 +102,15 @@ const header = (props) => {
 const mapStateToProps = state => {
   console.log("redux state:", state);
   return {
-    businessTypes: state.businessTypes
+    businessTypesList: state.businessTypesList,
+    servicesList: state.servicesList
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return{
-    onInitBusinessTypes: () => dispatch(headerActions.initBusinessTypes())
+    onInitBusinessTypesList: () => dispatch(headerActions.initBusinessTypesList()),
+    onInitServicesList: () => dispatch(headerActions.initServicesList())
   }
 }
 

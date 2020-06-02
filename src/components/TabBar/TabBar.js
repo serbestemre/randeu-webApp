@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import {makeStyles} from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
@@ -50,9 +50,10 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SimpleTabs(props) {
 
-  const {businessTypes} = props;
+  const {businessTypes, services} = props;
 
-  console.log("FETCHED PROPS BUSINESS TYPES => ", businessTypes);
+  console.log("TAB BAR PROPS servicesList => ", services);
+  console.log("TAB BAR PROPS businessTypes => ", businessTypes);
 
   const businessNames = [
     {title: "Altın Makas Erkek Kuaförü"},
@@ -62,22 +63,20 @@ export default function SimpleTabs(props) {
     {title: "Homeros Vadisi Paintball"},
   ];
 
-  const serviceList = [
-    {title: "Saç Kesim"},
-    {title: "Göz Muayenesi"},
-    {title: "Paintball"}
-  ];
-
   const classes = useStyles();
   const [value, setValue] = useState(0);
-  const [list, setList] = useState(serviceList);
+  const [list, setList] = useState();
   const [businessTypesList, setBusinessTypesList] = useState();
+  
+  const [servicesList, setServicesList] = useState(services);
+
   const theme = useTheme();
+
   const handleChange = (event, newValue) => {
     console.log("new value: ", newValue);
     switch (newValue) {
       case 0:
-        setList(serviceList);
+        setServicesList(services);
         break;
       case 1:
         setBusinessTypesList(businessTypes);
@@ -86,10 +85,12 @@ export default function SimpleTabs(props) {
         setList(businessNames);
         break;
       default:
-        setList(serviceList);
+        setServicesList(services);
+        break;
     }
     setValue(newValue);
   };
+  console.log("useState::: ", servicesList)
 
   return (
     <Grid container justify="center" alignItems={"center"}>
@@ -119,7 +120,7 @@ export default function SimpleTabs(props) {
           </AppBar>
 
           <TabPanel value={value} index={0}>
-            <TabForm list={list} optionLabel={(opt) => opt.title} textFieldPlaceholder={"Hizmet tipi yazın..."}/>
+            <TabForm list={servicesList} optionLabel={(opt) => opt.serviceName} textFieldPlaceholder={"Hizmet tipi yazın..."}/>
           </TabPanel>
 
           <TabPanel value={value} index={1}>

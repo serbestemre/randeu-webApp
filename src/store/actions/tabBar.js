@@ -2,10 +2,10 @@ import * as actionTypes from './actionTypes';
 import axios from '../../axios';
 
 
-export const setBusinessTypes = (businessTypesList) => {
+export const setBusinessTypesList = (businessTypesList) => {
     return {
         type: actionTypes.SET_BUSINESS_TYPES,
-        businessTypes: businessTypesList
+        businessTypesList: businessTypesList
     }
 }
 
@@ -16,14 +16,33 @@ export const fetchBusinessTypesFailed = () => {
 };
 
 
-export const initBusinessTypes = () => {
+export const initBusinessTypesList = () => {
     return dispatch => {
         axios.get('/admin/businesstypes')
     .then( response => {
-        dispatch(setBusinessTypes(response.data.data.businessTypesList))
+        dispatch(setBusinessTypesList(response.data.data.businessTypesList))
     })
     .catch(err => {
        console.log("ERROR initBusinessTypes ", err)
     })
     };
 };
+
+export const setServicesList = (servicesList) => {
+    return {
+        type: actionTypes.SET_SERVICES,
+        servicesList: servicesList
+    }
+}
+
+export const initServicesList = () => {
+    return dispatch => {
+        axios.get('/admin/services')
+        .then(response => {
+            dispatch(setServicesList(response.data.data.servicesList))
+        })
+        .catch(err => {
+            console.log("ERROR initServices ", err)
+        })
+    }
+}

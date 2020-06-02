@@ -2,17 +2,24 @@ import * as actionTypes from "../actions/actionTypes";
 
 
 const initialState = {
-  serviceTypes: [],
-  businessTypes: [],
+  servicesList: [],
+  businessTypesList: [],
   allBusiness: [],
   cities: [],
   error: false,
 };
 
-const setBusinessTypes = (state, action) => {
+const setServicesList = (state, action) => {
   return {
     ...state,
-    businessTypes: action.businessTypes,
+    servicesList:action.servicesList,
+  }
+}
+
+const setBusinessTypesList = (state, action) => {
+  return {
+    ...state,
+    businessTypesList: action.businessTypesList,
     error: false,
   };
 };
@@ -27,9 +34,11 @@ const fetchBusinessTypesFailed = (state, action) => {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.SET_BUSINESS_TYPES:
-      return setBusinessTypes(state, action);
+      return setBusinessTypesList(state, action);
     case actionTypes.FETCH_BUSINESS_TYPES_FAILED:
       return fetchBusinessTypesFailed(state, action);
+      case actionTypes.SET_SERVICES:
+        return setServicesList(state,action);
     default:
       return state;
   }
