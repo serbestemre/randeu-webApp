@@ -1,8 +1,12 @@
-import React from "react";
+import React, {useEffect, useState, useCallback} from "react";
+import {connect, useDispatch, useSelector  } from 'react-redux';
+import axios from '../../axios';
+
 import { Grid, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import TabBar from "../../components/TabBar/TabBar";
 import HeaderImage from "../../assets/images/header3.jpg";
+import * as headerActions from '../../store/actions/index'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,8 +21,42 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Header = (props) => {
+const header = (props) => {
   const classes = useStyles();
+
+//   const dispatch = useDispatch();
+
+//   const businessTypesList = useSelector(state => {
+//     console.log("USE SELECTOR::::::", state);
+//     return state.businessTypes
+//   });
+
+// const [businessTypes, setBusinessTypes] =  useState();
+//   const onGetBusinessTypes = () => dispatch(actions.initBusinessTypes());
+
+//   useEffect(() => {
+//     console.log("useEffected- onGetBusinessTypes")
+//     onGetBusinessTypes();
+//   },[onGetBusinessTypes]);
+
+
+  // ÇALIŞAN KOD
+  // useEffect(() => {
+  //   axios.get('/admin/businesstypes/5e8098940c15944a5cb46262')
+  //   .then( response => {
+  //       console.log("RESPONSE PAYLOAD ====>>> ", response.data.data.businessTypeList)
+  //       setBusinessTypes(response.data.data.businessTypeList)
+  //   })
+  //   .catch(err => {
+  //      console.log("ERRRRORRRR", err)
+  //   })
+  // }, [])
+
+  useEffect(() => {
+    props.onInitBusinessTypes();
+  },[])
+
+
   return (
     <Grid
       container
@@ -48,11 +86,24 @@ const Header = (props) => {
 
       <Grid container justify={"center"} alignItems={"center"}>
         <Grid item xs={10} sm={10} md={6}>
-          <TabBar />
+          <TabBar businessTypes={props.businessTypes} />
         </Grid>
       </Grid>
     </Grid>
   );
 };
 
-export default Header;
+const mapStateToProps = state => {
+  console.log("redux state:", state);
+  return {
+    businessTypes: state.businessTypes
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return{
+    onInitBusinessTypes: () => dispatch(headerActions.initBusinessTypes())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(header);

@@ -22,7 +22,6 @@ const Features = () => {
         container
         direction="row"
         justify="space-evenly"
-        alignItems="top"
       >
         <FeatureCard
           title={"7/24"}

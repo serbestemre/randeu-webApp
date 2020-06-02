@@ -22,7 +22,7 @@ const TabForm = (props) => {
   }));
 
   const classes = useStyles();
-  const {list, textFieldPlaceholder} = props;
+  const {list, optionLabel, textFieldPlaceholder} = props;
   return (
     <form className={classes.root} noValidate autoComplete="off">
       <Grid container item spacing={1} xs={12} sm={12}>
@@ -30,7 +30,7 @@ const TabForm = (props) => {
           <Autocomplete
             id="combo-box-demo"
             options={list}
-            getOptionLabel={(option) => option.title}
+            getOptionLabel={optionLabel}
             renderInput={(params) => (
               <TextField
                 {...params}
@@ -45,7 +45,7 @@ const TabForm = (props) => {
           <Autocomplete
             className={classes.root}
             id="combo-box-demo"
-            options={cities}
+            options={list}
             getOptionLabel={(option) => option.title}
             renderInput={(params) => (
               <TextField

@@ -13,7 +13,7 @@ const Sectors = () => {
         }
       />
 
-      <Grid container direction="row" justify="space-evenly" alignItems="top">
+      <Grid container direction="row" justify="space-evenly" >
         <SectorCard
           header="Sağlık"
           imageSrc={

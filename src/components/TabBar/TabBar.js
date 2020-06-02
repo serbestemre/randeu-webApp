@@ -24,7 +24,7 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box p={3} style={{backgroundColor: "transparent"}}>
+        <Box p={2} style={{backgroundColor: "transparent"}}>
           <Typography component={"span"}>{children}</Typography>
         </Box>
       )}
@@ -48,7 +48,11 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function SimpleTabs() {
+export default function SimpleTabs(props) {
+
+  const {businessTypes} = props;
+
+  console.log("FETCHED PROPS BUSINESS TYPES => ", businessTypes);
 
   const businessNames = [
     {title: "Altın Makas Erkek Kuaförü"},
@@ -64,27 +68,19 @@ export default function SimpleTabs() {
     {title: "Paintball"}
   ];
 
-  const businessTypeList = [
-    {title: "Erkek Kuaförü"},
-    {title: "Güzellik Merkezi"},
-    {title: "Göz Doktoru"},
-    {title: "Diş Doktoru"},
-    {title: "Halısaha"},
-    {title: "Paintball"},
-  ];
-
   const classes = useStyles();
   const [value, setValue] = useState(0);
   const [list, setList] = useState(serviceList);
+  const [businessTypesList, setBusinessTypesList] = useState();
   const theme = useTheme();
-  
   const handleChange = (event, newValue) => {
+    console.log("new value: ", newValue);
     switch (newValue) {
       case 0:
         setList(serviceList);
         break;
       case 1:
-        setList(businessTypeList);
+        setBusinessTypesList(businessTypes);
         break;
       case 2:
         setList(businessNames);
@@ -123,11 +119,11 @@ export default function SimpleTabs() {
           </AppBar>
 
           <TabPanel value={value} index={0}>
-            <TabForm list={list} textFieldPlaceholder={"Hizmet tipi yazın..."}/>
+            <TabForm list={list} optionLabel={(opt) => opt.title} textFieldPlaceholder={"Hizmet tipi yazın..."}/>
           </TabPanel>
 
           <TabPanel value={value} index={1}>
-            <TabForm list={list} textFieldPlaceholder={"İşyeri tipi yazın..."}/>
+            <TabForm list={businessTypesList} optionLabel={(opt) => opt.businessTypeName} textFieldPlaceholder={"İşyeri tipi yazın..."}/>
           </TabPanel>
           <TabPanel value={value} index={2}>
             <TabForm list={list} textFieldPlaceholder={"İşyeri adını yazın..."}/>
