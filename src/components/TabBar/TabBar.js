@@ -49,9 +49,10 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SimpleTabs(props) {
 
-  const {businessTypes, services} = props;
+  const {businessTypes, services, businesses} = props;
   const [servicesList, setServicesList] = useState(services);
   const [businessTypesList, setBusinessTypesList]= useState();
+  const [businessList, setBusinessList] = useState();
 
 useEffect(() => {
   console.log("set ServicesList USE EFFECTED=======>")
@@ -72,9 +73,6 @@ useEffect(() => {
   const classes = useStyles();
   const [value, setValue] = useState(0);
   const [list, setList] = useState();
-  
-
-
   const theme = useTheme();
 
   const handleChange = (event, newValue) => {
@@ -82,14 +80,13 @@ useEffect(() => {
     switch (newValue) {
       case 0:
         console.log("set ServicesList caseCall=======>")
-
         setServicesList(services);
         break;
       case 1:
         setBusinessTypesList(businessTypes);
         break;
       case 2:
-        setList(businessNames);
+        setBusinessList(businesses);
         break;
       default:
         setServicesList(services);
@@ -134,7 +131,7 @@ useEffect(() => {
             <TabForm list={businessTypesList} optionLabel={(opt) => opt.businessTypeName} textFieldPlaceholder={"İşyeri tipi yazın..."}/>
           </TabPanel>
           <TabPanel value={value} index={2}>
-            <TabForm list={list} textFieldPlaceholder={"İşyeri adını yazın..."}/>
+            <TabForm list={businessList} optionLabel={(opt) => opt.businessName}textFieldPlaceholder={"İşyeri adını yazın..."}/>
           </TabPanel>
         </div>
       </Grid>

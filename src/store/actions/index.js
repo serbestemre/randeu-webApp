@@ -1,1 +1,1 @@
-export { initBusinessTypesList, initServicesList } from "./tabBar";
+export { initBusinessTypesList, initServicesList, initBusinessList } from "./tabBar";

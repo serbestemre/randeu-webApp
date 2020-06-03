@@ -36,8 +36,14 @@ const header = (props) => {
     return state.servicesList
   });
 
+  const businessList = useSelector(state => {
+    console.log("USE businessList SELECTOR::::::", state);
+    return state.businessList
+  })
+
   const onInitBusinessTypesList =useCallback(() =>dispatch(headerActions.initBusinessTypesList()), [dispatch]);
   const  onInitServicesList =useCallback(() => dispatch(headerActions.initServicesList()), [dispatch]);
+  const onInitBusinessList = useCallback(() => dispatch(headerActions.initBusinessList()), [dispatch]);
 
 
   useEffect(() => {
@@ -49,6 +55,11 @@ const header = (props) => {
     console.log("useEffected- onInitServicesList")
     onInitServicesList();
   },[onInitServicesList]);
+
+  useEffect(() => {
+    console.log("useEffected- onInitBusinessList")
+    onInitBusinessList();
+  },[onInitBusinessList]);
 
 
   // ÇALIŞAN KOD
@@ -92,7 +103,7 @@ const header = (props) => {
 
       <Grid container justify={"center"} alignItems={"center"}>
         <Grid item xs={10} sm={10} md={6}>
-          <TabBar businessTypes={businessTypesList} services={servicesList} />
+          <TabBar businessTypes={businessTypesList} services={servicesList} businesses={businessList} />
         </Grid>
       </Grid>
     </Grid>
