@@ -14,7 +14,6 @@ import { useTheme } from "@material-ui/core/styles";
 
 function TabPanel(props) {
   const {children, value, index, ...other} = props;
-
   return (
     <div
       role="tabpanel"
@@ -51,6 +50,13 @@ const useStyles = makeStyles((theme) => ({
 export default function SimpleTabs(props) {
 
   const {businessTypes, services} = props;
+  const [servicesList, setServicesList] = useState(services);
+  const [businessTypesList, setBusinessTypesList]= useState();
+
+useEffect(() => {
+  console.log("set ServicesList USE EFFECTED=======>")
+  setServicesList(services)
+},[services])
 
   console.log("TAB BAR PROPS servicesList => ", services);
   console.log("TAB BAR PROPS businessTypes => ", businessTypes);
@@ -66,9 +72,8 @@ export default function SimpleTabs(props) {
   const classes = useStyles();
   const [value, setValue] = useState(0);
   const [list, setList] = useState();
-  const [businessTypesList, setBusinessTypesList] = useState();
   
-  const [servicesList, setServicesList] = useState(services);
+
 
   const theme = useTheme();
 
@@ -76,6 +81,8 @@ export default function SimpleTabs(props) {
     console.log("new value: ", newValue);
     switch (newValue) {
       case 0:
+        console.log("set ServicesList caseCall=======>")
+
         setServicesList(services);
         break;
       case 1:

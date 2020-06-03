@@ -1,4 +1,5 @@
-import React from "react";
+import React, {useState} from "react";
+import axios from '../../axios';
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -7,11 +8,11 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import { Link, withRouter } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -35,8 +36,44 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Register() {
+
+const register = (props) => {
+  const [name, setName] = useState();
+  const [surname, setSurname] = useState();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+
   const classes = useStyles();
+
+  const registerHandler = () => {
+
+    const payload = {
+      fullName:name+surname,
+      email:email,
+      password:password,
+      passwordCheck:password
+    }
+
+      console.log("registering.... with the payload:>>>>> ", payload)
+    axios({
+      method: 'POST',
+      url: "/register",
+      headers:{
+        "Content-Type": "application/json"
+      },
+      data:payload
+    })
+    .then(response => {
+      console.log("register post req sent: ", response)
+    })
+    .catch(err =>{
+      console.log("register post req ERROR : ", err)
+    })
+    
+    
+
+  };
+  
 
   return (
     <Container component="main" maxWidth="xs">
@@ -56,6 +93,7 @@ export default function Register() {
                 name="firtsName"
                 variant="outlined"
                 required
+                onChange={event=> setName(event.target.value)}
                 fullWidth
                 id="firstName"
                 label="Adınız"
@@ -66,6 +104,8 @@ export default function Register() {
               <TextField
                 variant="outlined"
                 required
+                onChange={event=> setSurname(event.target.value)}
+
                 fullWidth
                 id="lastName"
                 label="Soyadınız"
@@ -77,6 +117,7 @@ export default function Register() {
               <TextField
                 variant="outlined"
                 required
+                onChange={event=> setEmail(event.target.value)}
                 fullWidth
                 id="email"
                 label="Email Adresiniz"
@@ -88,6 +129,7 @@ export default function Register() {
               <TextField
                 variant="outlined"
                 required
+                onChange={event=> setPassword(event.target.value)}
                 fullWidth
                 name="password"
                 label="Password"
@@ -104,11 +146,11 @@ export default function Register() {
             </Grid>
           </Grid>
           <Button
-            type="submit"
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={registerHandler}
           >
             Kayıt Ol
           </Button>
@@ -130,3 +172,5 @@ export default function Register() {
     </Container>
   );
 }
+
+export default register;

@@ -45,7 +45,7 @@ const TabForm = (props) => {
           <Autocomplete
             className={classes.root}
             id="combo-box-demo"
-            options={list}
+            options={cities}
             getOptionLabel={(option) => option.title}
             renderInput={(params) => (
               <TextField

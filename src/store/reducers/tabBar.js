@@ -6,6 +6,7 @@ const initialState = {
   businessTypesList: [],
   allBusiness: [],
   cities: [],
+  payload:{},
   error: false,
 };
 
@@ -30,6 +31,7 @@ const fetchBusinessTypesFailed = (state, action) => {
     error: true,
   };
 };
+
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {

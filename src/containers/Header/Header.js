@@ -24,20 +24,31 @@ const useStyles = makeStyles((theme) => ({
 const header = (props) => {
   const classes = useStyles();
 
-//   const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-//   const businessTypesList = useSelector(state => {
-//     console.log("USE SELECTOR::::::", state);
-//     return state.businessTypes
-//   });
+  const businessTypesList = useSelector(state => {
+    console.log("USE buss SELECTOR::::::", state);
+    return state.businessTypesList
+  });
 
-// const [businessTypes, setBusinessTypes] =  useState();
-//   const onGetBusinessTypes = () => dispatch(actions.initBusinessTypes());
+  const servicesList = useSelector(state => {
+    console.log("USE serv SELECTOR::::::", state);
+    return state.servicesList
+  });
 
-//   useEffect(() => {
-//     console.log("useEffected- onGetBusinessTypes")
-//     onGetBusinessTypes();
-//   },[onGetBusinessTypes]);
+  const onInitBusinessTypesList =useCallback(() =>dispatch(headerActions.initBusinessTypesList()), [dispatch]);
+  const  onInitServicesList =useCallback(() => dispatch(headerActions.initServicesList()), [dispatch]);
+
+
+  useEffect(() => {
+    console.log("useEffected- onGetBusinessTypes")
+    onInitBusinessTypesList();
+  },[onInitBusinessTypesList]);
+
+  useEffect(() => {
+    console.log("useEffected- onInitServicesList")
+    onInitServicesList();
+  },[onInitServicesList]);
 
 
   // ÇALIŞAN KOD
@@ -51,17 +62,6 @@ const header = (props) => {
   //      console.log("ERRRRORRRR", err)
   //   })
   // }, [])
-
-  useEffect(() => {
-    props.onInitBusinessTypesList();
-  },[])
-
-  useEffect(() => {
-    props.onInitServicesList();
-  },[])
-
-
-
 
   return (
     <Grid
@@ -92,26 +92,26 @@ const header = (props) => {
 
       <Grid container justify={"center"} alignItems={"center"}>
         <Grid item xs={10} sm={10} md={6}>
-          <TabBar businessTypes={props.businessTypesList} services={props.servicesList} />
+          <TabBar businessTypes={businessTypesList} services={servicesList} />
         </Grid>
       </Grid>
     </Grid>
   );
 };
 
-const mapStateToProps = state => {
-  console.log("redux state:", state);
-  return {
-    businessTypesList: state.businessTypesList,
-    servicesList: state.servicesList
-  }
-}
+// const mapStateToProps = state => {
+//   console.log("redux state:", state);
+//   return {
+//     businessTypesList: state.businessTypesList,
+//     servicesList: state.servicesList
+//   }
+// }
 
-const mapDispatchToProps = dispatch => {
-  return{
-    onInitBusinessTypesList: () => dispatch(headerActions.initBusinessTypesList()),
-    onInitServicesList: () => dispatch(headerActions.initServicesList())
-  }
-}
+// const mapDispatchToProps = dispatch => {
+//   return{
+//     onInitBusinessTypesList: () => dispatch(headerActions.initBusinessTypesList()),
+//     onInitServicesList: () => dispatch(headerActions.initServicesList())
+//   }
+// }
 
-export default connect(mapStateToProps, mapDispatchToProps)(header);
+export default header;

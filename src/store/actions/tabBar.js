@@ -1,7 +1,6 @@
 import * as actionTypes from './actionTypes';
 import axios from '../../axios';
 
-
 export const setBusinessTypesList = (businessTypesList) => {
     return {
         type: actionTypes.SET_BUSINESS_TYPES,
