@@ -3,7 +3,7 @@ import axios from "../../axios";
 
 export const setBusinessTypesList = (businessTypesList) => {
   return {
-    type: actionTypes.SET_BUSINESS_TYPES,
+    type: actionTypes.SET_BUSINESS_TYPES_LIST,
     businessTypesList: businessTypesList,
   };
 };
@@ -17,7 +17,7 @@ export const setBusinessList = (businessList) => {
 
 export const fetchBusinessTypesFailed = () => {
   return {
-    type: actionTypes.FETCH_BUSINESS_TYPES_FAILED,
+    type: actionTypes.FETCH_BUSINESS_TYPES_LIST_FAILED,
   };
 };
 
@@ -49,7 +49,7 @@ export const initBusinessList = () => {
 
 export const setServicesList = (servicesList) => {
   return {
-    type: actionTypes.SET_SERVICES,
+    type: actionTypes.SET_SERVICES_LIST,
     servicesList: servicesList,
   };
 };

@@ -43,11 +43,11 @@ const setBusinessList = (state, action) => {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.SET_BUSINESS_TYPES:
+    case actionTypes.SET_BUSINESS_TYPES_LIST:
       return setBusinessTypesList(state, action);
-    case actionTypes.FETCH_BUSINESS_TYPES_FAILED:
+    case actionTypes.FETCH_BUSINESS_TYPES_LIST_FAILED:
       return fetchBusinessTypesFailed(state, action);
-      case actionTypes.SET_SERVICES:
+      case actionTypes.SET_SERVICES_LIST:
         return setServicesList(state,action);
         case actionTypes.SET_BUSINESS_LIST:
           return setBusinessList(state, action);
