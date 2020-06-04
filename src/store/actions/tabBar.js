@@ -8,42 +8,9 @@ export const setBusinessTypesList = (businessTypesList) => {
   };
 };
 
-export const setBusinessList = (businessList) => {
-    return {
-        type: actionTypes.SET_BUSINESS_LIST,
-        businessList: businessList
-    }
-}
-
-export const fetchBusinessTypesFailed = () => {
+export const fetchServicesListFailed = () => {
   return {
-    type: actionTypes.FETCH_BUSINESS_TYPES_LIST_FAILED,
-  };
-};
-
-export const initBusinessTypesList = () => {
-  return (dispatch) => {
-    axios
-      .get("/admin/businesstypes")
-      .then((response) => {
-        dispatch(setBusinessTypesList(response.data.data.businessTypesList));
-      })
-      .catch((err) => {
-        console.log("ERROR initBusinessTypes ", err);
-      });
-  };
-};
-
-export const initBusinessList = () => {
-  return (dispatch) => {
-    axios
-      .get("/business/businessList")
-      .then((response) => {
-        dispatch(setBusinessList(response.data.data.businessList));
-      })
-      .catch((err) => {
-        console.log("ERROR initBusinessList ", err);
-      });
+    type: actionTypes.FETCH_SERVICES_LIST_FAILED,
   };
 };
 
@@ -62,7 +29,52 @@ export const initServicesList = () => {
         dispatch(setServicesList(response.data.data.servicesList));
       })
       .catch((err) => {
-        console.log("ERROR initServices ", err);
+        dispatch(fetchServicesListFailed());
       });
+  };
+};
+
+export const fetchBusinessTypesListFailed = () => {
+  return {
+    type: actionTypes.FETCH_BUSINESS_TYPES_LIST_FAILED,
+  };
+};
+
+export const initBusinessTypesList = () => {
+  return (dispatch) => {
+    axios
+      .get("/admin/businesstypes")
+      .then((response) => {
+        dispatch(setBusinessTypesList(response.data.data.businessTypesList));
+      })
+      .catch((err) => {
+        dispatch(fetchBusinessTypesListFailed());
+      });
+  };
+};
+
+export const initBusinessList = () => {
+  return (dispatch) => {
+    axios
+      .get("/business/businessList")
+      .then((response) => {
+        dispatch(setBusinessList(response.data.data.businessList));
+      })
+      .catch((err) => {
+        dispatch(fetchBusinessListFailed());
+      });
+  };
+};
+
+export const setBusinessList = (businessList) => {
+  return {
+    type: actionTypes.SET_BUSINESS_LIST,
+    businessList: businessList,
+  };
+};
+
+export const fetchBusinessListFailed = () => {
+  return {
+    type: actionTypes.FETCH_BUSINESS_LIST_FAILED,
   };
 };

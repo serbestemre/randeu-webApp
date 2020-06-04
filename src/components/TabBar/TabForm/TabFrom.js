@@ -5,7 +5,8 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import SearchIcon from "@material-ui/icons/Search";
 import {makeStyles} from "@material-ui/core/styles";
-
+import { useSelector  } from 'react-redux';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 
 const TabForm = (props) => {
@@ -22,23 +23,33 @@ const TabForm = (props) => {
   }));
 
   const classes = useStyles();
-  const {list, optionLabel, textFieldPlaceholder} = props;
+  const {list, error, optionLabel, textFieldPlaceholder} = props;
+
+ let searchField = null;
+
+ searchField = error ? <p style={{color:"red"}}>Search list cannot be loaded...</p> : <CircularProgress/>
+
+
+ if(list){
+   searchField =  (<Autocomplete
+   id="combo-box-demo"
+   options={list}
+   getOptionLabel={optionLabel}
+   renderInput={(params) => (
+     <TextField
+       {...params}
+       label={textFieldPlaceholder}
+       variant="outlined"
+     />
+   )}
+ />);
+ }
+
   return (
     <form className={classes.root} noValidate autoComplete="off">
       <Grid container item spacing={1} xs={12} sm={12}>
         <Grid item xs={12} sm={6}  md={5}>
-          <Autocomplete
-            id="combo-box-demo"
-            options={list}
-            getOptionLabel={optionLabel}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label={textFieldPlaceholder}
-                variant="outlined"
-              />
-            )}
-          />
+         {searchField}
         </Grid>
 
         <Grid item xs={12} sm={6} md={5}>

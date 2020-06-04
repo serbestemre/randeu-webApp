@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useCallback} from "react";
-import {connect, useDispatch, useSelector  } from 'react-redux';
+import {useDispatch, useSelector  } from 'react-redux';
 import axios from '../../axios';
 
 import { Grid, Typography } from "@material-ui/core";
@@ -27,19 +27,19 @@ const header = (props) => {
   const dispatch = useDispatch();
 
   const businessTypesList = useSelector(state => {
-    console.log("USE buss SELECTOR::::::", state);
     return state.businessTypesList
   });
 
   const servicesList = useSelector(state => {
-    console.log("USE serv SELECTOR::::::", state);
     return state.servicesList
   });
 
+
   const businessList = useSelector(state => {
-    console.log("USE businessList SELECTOR::::::", state);
     return state.businessList
   })
+
+ 
 
   const onInitBusinessTypesList =useCallback(() =>dispatch(headerActions.initBusinessTypesList()), [dispatch]);
   const  onInitServicesList =useCallback(() => dispatch(headerActions.initServicesList()), [dispatch]);
@@ -47,32 +47,16 @@ const header = (props) => {
 
 
   useEffect(() => {
-    console.log("useEffected- onGetBusinessTypes")
     onInitBusinessTypesList();
   },[onInitBusinessTypesList]);
 
   useEffect(() => {
-    console.log("useEffected- onInitServicesList")
     onInitServicesList();
   },[onInitServicesList]);
 
   useEffect(() => {
-    console.log("useEffected- onInitBusinessList")
     onInitBusinessList();
   },[onInitBusinessList]);
-
-
-  // ÇALIŞAN KOD
-  // useEffect(() => {
-  //   axios.get('/admin/businesstypes/5e8098940c15944a5cb46262')
-  //   .then( response => {
-  //       console.log("RESPONSE PAYLOAD ====>>> ", response.data.data.businessTypeList)
-  //       setBusinessTypes(response.data.data.businessTypeList)
-  //   })
-  //   .catch(err => {
-  //      console.log("ERRRRORRRR", err)
-  //   })
-  // }, [])
 
   return (
     <Grid
@@ -109,20 +93,5 @@ const header = (props) => {
     </Grid>
   );
 };
-
-// const mapStateToProps = state => {
-//   console.log("redux state:", state);
-//   return {
-//     businessTypesList: state.businessTypesList,
-//     servicesList: state.servicesList
-//   }
-// }
-
-// const mapDispatchToProps = dispatch => {
-//   return{
-//     onInitBusinessTypesList: () => dispatch(headerActions.initBusinessTypesList()),
-//     onInitServicesList: () => dispatch(headerActions.initServicesList())
-//   }
-// }
 
 export default header;

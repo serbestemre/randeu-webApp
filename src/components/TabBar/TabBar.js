@@ -10,6 +10,7 @@ import Box from "@material-ui/core/Box";
 import {fade} from "@material-ui/core/styles/colorManipulator";
 import TabForm from './TabForm/TabFrom';
 import { useTheme } from "@material-ui/core/styles";
+import { useSelector  } from 'react-redux';
 
 
 function TabPanel(props) {
@@ -54,32 +55,31 @@ export default function SimpleTabs(props) {
   const [businessTypesList, setBusinessTypesList]= useState();
   const [businessList, setBusinessList] = useState();
 
+  const servicesListError = useSelector(state => {
+    return state.servicesListError
+  });
+
+
+  const businessTypesListError = useSelector(state =>{
+    return state.businessTypesListError
+  })
+
+
+  const businessListError = useSelector(state => {
+    return state.businessListError
+  })
+
 useEffect(() => {
-  console.log("set ServicesList USE EFFECTED=======>")
   setServicesList(services)
 },[services])
 
-  console.log("TAB BAR PROPS servicesList => ", services);
-  console.log("TAB BAR PROPS businessTypes => ", businessTypes);
-
-  const businessNames = [
-    {title: "Altın Makas Erkek Kuaförü"},
-    {title: "Byce Erkek Kuaförü"},
-    {title: "Can Met Diş Polikliniği"},
-    {title: "Elit Halısaha"},
-    {title: "Homeros Vadisi Paintball"},
-  ];
-
   const classes = useStyles();
   const [value, setValue] = useState(0);
-  const [list, setList] = useState();
   const theme = useTheme();
 
   const handleChange = (event, newValue) => {
-    console.log("new value: ", newValue);
     switch (newValue) {
       case 0:
-        console.log("set ServicesList caseCall=======>")
         setServicesList(services);
         break;
       case 1:
@@ -94,7 +94,6 @@ useEffect(() => {
     }
     setValue(newValue);
   };
-  console.log("useState::: ", servicesList)
 
   return (
     <Grid container justify="center" alignItems={"center"}>
@@ -124,14 +123,14 @@ useEffect(() => {
           </AppBar>
 
           <TabPanel value={value} index={0}>
-            <TabForm list={servicesList} optionLabel={(opt) => opt.serviceName} textFieldPlaceholder={"Hizmet tipi yazın..."}/>
+            <TabForm list={servicesList} error={servicesListError} optionLabel={(opt) => opt.serviceName} textFieldPlaceholder={"Hizmet tipi yazın..."}/>
           </TabPanel>
 
           <TabPanel value={value} index={1}>
-            <TabForm list={businessTypesList} optionLabel={(opt) => opt.businessTypeName} textFieldPlaceholder={"İşyeri tipi yazın..."}/>
+            <TabForm list={businessTypesList} error={businessTypesListError} optionLabel={(opt) => opt.businessTypeName} textFieldPlaceholder={"İşyeri tipi yazın..."}/>
           </TabPanel>
           <TabPanel value={value} index={2}>
-            <TabForm list={businessList} optionLabel={(opt) => opt.businessName}textFieldPlaceholder={"İşyeri adını yazın..."}/>
+            <TabForm list={businessList} error={businessListError} optionLabel={(opt) => opt.businessName}textFieldPlaceholder={"İşyeri adını yazın..."}/>
           </TabPanel>
         </div>
       </Grid>
