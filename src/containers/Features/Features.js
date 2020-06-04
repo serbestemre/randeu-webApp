@@ -26,7 +26,7 @@ const Features = () => {
         <FeatureCard
           title={"7/24"}
           contentText={
-            "Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy."
+            "Zaman farkı gözetmeksizin, istediğiniz zaman dilediğiniz yerden randevu talebi oluşturun"
           }
           icon={<AccessTimeIcon fontSize="large" color="secondary" />}
         />
@@ -34,7 +34,7 @@ const Features = () => {
           title={"Hızlı"}
           icon={<SpeedIcon fontSize="large" color="secondary" />}
           contentText={
-            "Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. "
+            "Bir kaç tıklamayla dilediğin zaman randevu talebini oluştur hemen onaylansın"
           }
         />
 
@@ -42,15 +42,15 @@ const Features = () => {
           icon={<CameraOutlinedIcon fontSize="large" color="secondary" />}
           title={"Çeşitli"}
           contentText={
-            "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature belief, Lorem Ipsum is not simply random text. It has roots in a piece of from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College"
+            "Geniş sektör yelpazesi ile bir günlük kullanım değil, ihtiyaç duyduğunuz her an kullanabileceğiniz size özel bir randevu asistanı"
           }
         />
 
         <FeatureCard
-          title={"Hızlı"}
+          title={"Ücretsiz"}
           icon={<SpeedIcon fontSize="large" color="secondary" />}
           contentText={
-            "Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. "
+            "RANDEU'nun sunduğu tüm hizmetlere ücretsiz erişin"
           }
         />
       </Grid>

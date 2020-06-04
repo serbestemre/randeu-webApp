@@ -84,12 +84,13 @@ let theme = createMuiTheme({
     fontFamily: "Open Sans, Raleway, Roboto",
     h1: {
       fontFamily: "Open Sans",
-      fontWeight: 300,
-      fontSize:"4rem"
+      fontWeight: 400,
+      fontSize:"3.5rem",
     },
     h2: {
       fontFamily: "Raleway",
-      fontSize:"3rem"
+      fontSize:"2.5rem",
+      fontWeight:300,
     },
     h3: {
       fontFamily: "Lato",

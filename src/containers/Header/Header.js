@@ -1,16 +1,15 @@
-import React, {useEffect, useState, useCallback} from "react";
+import React, {useEffect, useCallback} from "react";
 import {useDispatch, useSelector  } from 'react-redux';
-import axios from '../../axios';
-
 import { Grid, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
+
 import TabBar from "../../components/TabBar/TabBar";
 import HeaderImage from "../../assets/images/header3.jpg";
 import * as headerActions from '../../store/actions/index'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    backgroundImage: `linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(${HeaderImage})`,
+    backgroundImage: `linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url(${HeaderImage})`,
     // backgroundImage: `url(${HeaderImage})`,
     backgroundPosition: "top center",
     backgroundSize: "cover",
@@ -34,12 +33,9 @@ const header = (props) => {
     return state.servicesList
   });
 
-
   const businessList = useSelector(state => {
     return state.businessList
   })
-
- 
 
   const onInitBusinessTypesList =useCallback(() =>dispatch(headerActions.initBusinessTypesList()), [dispatch]);
   const  onInitServicesList =useCallback(() => dispatch(headerActions.initServicesList()), [dispatch]);
@@ -76,12 +72,12 @@ const header = (props) => {
         alignItems={"flex-start"}
         style={{ paddingLeft: "10%" }}
       >
-        <Typography variant="h1" gutterBottom style={{ display: "block" }}>
-         Buraya Randeu Slogan gelecek
+        <Typography variant="h1" gutterBottom style={{ display: "inline-block", paddingBottom:"20px"}}>
+         Randeu –  Kişisel Randevu Asistanınız
         </Typography>
 
-        <Typography variant="h2" gutterBottom>
-          Alt başlık gelecek
+        <Typography variant="h2" gutterBottom  style={{ display: "inline-block", paddingBottom:"20px"}}>
+          Onlarca sektör, binlerce iş yeri her an ulaşılabilir
         </Typography>
       </Grid>
 
