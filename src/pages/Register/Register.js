@@ -135,6 +135,7 @@ const register = (props) => {
       // Auth Error handling eg. mail already exists
       setAxiosError(error.response.data.message)
     }
+    
   };
 
   const checkFormValidty = () => {
