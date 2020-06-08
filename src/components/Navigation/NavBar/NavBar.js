@@ -1,6 +1,6 @@
-import React  from "react";
+import React, {useState, useEffect}  from "react";
 import { Link, withRouter } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import {useSelector  } from 'react-redux';
 import MenuItem from "@material-ui/core/MenuItem";
 import { AppBar, Toolbar, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
@@ -22,20 +22,36 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const links = [
-  { id: 1, title: "Anasayfa", target: "/", show: "always" },
-  { id: 2, title: "Hakkımızda", target: "/hakkimizda", show: "always" },
-  // { id: 3, title: "İŞLETMELER", target: "#" },
-  { id: 4, title: "Kayıt Ol", target: "/kullanici/kayit", show: "not-auth" },
-  { id: 5, title: "Giriş Yap", target: "/kullanici/giris", show: "not-auth" },
-  { id: 5, title: "Username", target: "/kullanici/profil", show: "only-auth" },
-  { id: 6, title: "Çıkış Yap", target: "/cikis", show: "only-auth" },
-];
-
 const navBar = (props) => {
+  
+
   const {
     location: { pathname },
   } = props;
+
+  const [user, setUser] = useState();
+
+  const userProfile = useSelector(state => {
+    return state.auth.userProfile
+  })
+
+
+
+    useEffect(() => {
+      setUser(userProfile);
+
+    },[user])
+
+
+    const links = [
+      { id: 1, title: "Anasayfa", target: "/", show: "always" },
+      { id: 2, title: "Hakkımızda", target: "/hakkimizda", show: "always" },
+      // { id: 3, title: "İŞLETMELER", target: "#" },
+      { id: 4, title: "Kayıt Ol", target: "/kullanici/kayit", show: "not-auth" },
+      { id: 5, title: "Giriş Yap", target: "/kullanici/giris", show: "not-auth" },
+      { id: 5, title: `${user ? user.FullName : "..."}`, target: "/kullanici/profil", show: "only-auth" },
+      { id: 6, title: "Çıkış Yap", target: "/cikis", show: "only-auth" },
+    ];
 
   const isMobileScreen = useMediaQuery("(min-width:700px)");
   const classes = useStyles();
@@ -43,7 +59,6 @@ const navBar = (props) => {
   const isAuthenticated = useSelector((state) => {
     return state.auth.token;
   });
-
 
   const rederLinks = links.filter((link) => {
     if (

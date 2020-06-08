@@ -4,6 +4,8 @@ const initialState = {
   token: null,
   error: null,
   loading: false,
+  userProfile: null,
+  userProfileError:null
 };
 
 const authStart = (state, action) => {
@@ -36,6 +38,22 @@ const authLogout = (state, action) => {
   };
 };
 
+const setUserProfileSuccess = (state, action) => {
+  return {
+    ...state,
+    userProfile:action.userProfile,
+    userProfileError:null,
+  }
+}
+
+const fetchUserProfileFailed = (state, action) => {
+  return {
+    ...state,
+    userProfile: null,
+    userProfileError: action.userProfileError,
+  }
+}
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.AUTH_START:
@@ -46,8 +64,14 @@ const reducer = (state = initialState, action) => {
       return authSuccess(state, action);
     case actionTypes.AUTH_LOGOUT:
       return authLogout(state, action);
+      case actionTypes.SET_USER_PROFILE_SUCCESS:
+        return setUserProfileSuccess(state, action);
+        case actionTypes.FETCH_USER_PROFILE_FAILED:
+          return fetchUserProfileFailed(state, action);
     default:
       return state;
   }
 };
+
+
 export default reducer;
