@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useCallback } from "react";
 import { Link, withRouter } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -46,13 +46,6 @@ const navBar = (props) => {
   const isAuthenticated = useSelector((state) => {
     return state.auth.token;
   });
-
-  const onAuth = useCallback(
-    (email, password) => dispatch(authActions.auth(email, password)),
-    [dispatch]
-  );
-
-
 
   let navigatorMenu = links.map((link) => {
     if (

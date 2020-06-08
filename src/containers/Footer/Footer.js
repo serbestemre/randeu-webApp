@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Grid, MenuList, Typography } from "@material-ui/core";
+import { Grid, MenuList } from "@material-ui/core";
 import { useTheme } from "@material-ui/core/styles";
 import FacebookIcon from "@material-ui/icons/Facebook";
 import IconButton from "@material-ui/core/IconButton";
