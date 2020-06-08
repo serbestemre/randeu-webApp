@@ -8,7 +8,7 @@ const layout = (props) => {
     <Grid container direction="column">
       <NavBar/>
       {props.children}
-      <Footer />
+      {/* <Footer /> */}
     </Grid>
   );
 };
