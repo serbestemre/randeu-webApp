@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React  from "react";
 import { Link, withRouter } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -7,7 +7,6 @@ import { makeStyles } from "@material-ui/styles";
 import { Grid, MenuList, useMediaQuery } from "@material-ui/core";
 // import Logo from "../../../assets/images/randeu-04.svg";
 import Collapse from "../../UI/Collapse/Collapse";
-import * as authActions from "../../../store/actions/index";
 
 const useStyles = makeStyles(() => ({
   MuiListItem: {
@@ -41,18 +40,24 @@ const navBar = (props) => {
   const isMobileScreen = useMediaQuery("(min-width:700px)");
   const classes = useStyles();
 
-  const dispatch = useDispatch();
-
   const isAuthenticated = useSelector((state) => {
     return state.auth.token;
   });
 
-  let navigatorMenu = links.map((link) => {
+
+  const rederLinks = links.filter((link) => {
     if (
       link.show === "always" ||
       (link.show === "not-auth" && isAuthenticated === null) ||
       (link.show === "only-auth" && isAuthenticated !== null)
     ) {
+      return true
+    }
+    return false
+  })
+
+
+  let navigatorMenu = rederLinks.map((link) => {
       return (
         <MenuItem
           className={classes.MuiListItem}
@@ -65,23 +70,11 @@ const navBar = (props) => {
           {link.title}
         </MenuItem>
       );
-    }
   });
-
-const mobileLinks = links.filter((link) => {
-  if (
-    link.show === "always" ||
-    (link.show === "not-auth" && isAuthenticated === null) ||
-    (link.show === "only-auth" && isAuthenticated !== null)
-  ) {
-    return true
-  }
-})
 
 
   if (!isMobileScreen) {
-    console.log("mobile links:", mobileLinks)
-    navigatorMenu = <Collapse menuList={mobileLinks} />;
+    navigatorMenu = <Collapse menuList={rederLinks} />;
   }
 
   return (

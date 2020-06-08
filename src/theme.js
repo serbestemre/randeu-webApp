@@ -79,6 +79,11 @@ let theme = createMuiTheme({
   palette: {
     primary: { ...primaryColor },
     secondary: { ...secondaryColor },
+    success:{ 
+      light:"#39DB80",
+      main:"#4BCA81",
+      dark:"#20CC82"
+    }
   },
   typography: {
     fontFamily: "Open Sans, Raleway, Roboto",

@@ -9,6 +9,7 @@ import UserProfile from "./pages/UserProfile/UserProfile";
 import Register from "./pages/Register/Register";
 import Auxiliary from "./hoc/Auxiliary/Auxiliary";
 import AboutUs from './pages/AboutUs/AboutUs';
+import Redirection from './containers/Redirection/Redirection';
 import * as actions  from "./store/actions/index";
 
 const App = (props) => {
@@ -39,7 +40,6 @@ if(isAuthenticated){
   )
 }
 
-
   return (
    <Auxiliary>
     <Switch>
@@ -47,6 +47,7 @@ if(isAuthenticated){
       <Route path="/kullanici/giris"  component={Login} />
       {authRoutes}
       <Route path="/kullanici/kayit"  component={Register} />
+      <Route path="/redirecting"  render ={(props) => <Redirection redirectText={props.location.state ? props.location.state.redirectText : "" } {...props} />} />
       <Route path="/hakkimizda"  component={AboutUs} />
       <Route path="/" exact component={Landing}/>
     </Layout>    

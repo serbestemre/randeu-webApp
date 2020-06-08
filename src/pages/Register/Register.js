@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "../../axios";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -13,8 +13,8 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { checkValidity } from "../../shared/utility";
-import CircularProgress from '@material-ui/core/CircularProgress';
-
+import CircularProgress from "@material-ui/core/CircularProgress";
+import { Redirect } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -37,13 +37,13 @@ const useStyles = makeStyles((theme) => ({
   },
   wrapper: {
     margin: theme.spacing(1),
-    position: 'relative',
+    position: "relative",
   },
   buttonProgress: {
-    color:theme.palette.secondary.light,
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
+    color: theme.palette.secondary.light,
+    position: "absolute",
+    top: "50%",
+    left: "50%",
     marginTop: -12,
     marginLeft: -12,
   },
@@ -99,17 +99,22 @@ const register = (props) => {
 
   const [axiosError, setAxiosError] = useState();
   const [loading, setLoading] = useState(false);
-
+  const [redirect, setRedirect] = useState();
   const classes = useStyles();
 
   const verifyName = (event) => {
     let result = checkValidity(event.target.value, fullName.validation);
-    setFullName({ ...fullName, ...result, value:event.target.value, touched: true });
+    setFullName({
+      ...fullName,
+      ...result,
+      value: event.target.value,
+      touched: true,
+    });
     checkFormValidty();
   };
 
   const verifyEmail = (event) => {
-    setEmail({email,  touched: true} );
+    setEmail({ email, touched: true });
     let result = checkValidity(event.target.value, email.validation);
     setEmail({ ...email, ...result });
     checkFormValidty();
@@ -117,25 +122,36 @@ const register = (props) => {
 
   const verifyPassword = (event) => {
     let result = checkValidity(event.target.value, password.validation);
-    setPassword({ ...password, ...result, value:event.target.value, touched: true });
+    setPassword({
+      ...password,
+      ...result,
+      value: event.target.value,
+      touched: true,
+    });
     checkFormValidty();
   };
-  const verifyPasswordCheck = (event) => {   
+  const verifyPasswordCheck = (event) => {
     let result = checkValidity(event.target.value, passwordCheck.validation);
-    setPasswordCheck({ ...passwordCheck, ...result,  value:event.target.value,touched: true });
+    setPasswordCheck({
+      ...passwordCheck,
+      ...result,
+      value: event.target.value,
+      touched: true,
+    });
     checkFormValidty();
   };
 
   const errorHandler = (error) => {
-    if(error.request && !error.response){
-      setAxiosError("Sunucu kaynaklı bir sorun oluştu. Lütfen daha sonra tekrar deneyin")
+    if (error.request && !error.response) {
+      setAxiosError(
+        "Sunucu kaynaklı bir sorun oluştu. Lütfen daha sonra tekrar deneyin"
+      );
     }
 
-    if(error.response && error.response.data){
+    if (error.response && error.response.data) {
       // Auth Error handling eg. mail already exists
-      setAxiosError(error.response.data.message)
+      setAxiosError(error.response.data.message);
     }
-    
   };
 
   const checkFormValidty = () => {
@@ -151,7 +167,7 @@ const register = (props) => {
     ) {
       setIsFormValid(true);
     } else {
-      console.log("invalid form")
+      console.log("invalid form");
       setIsFormValid(false);
     }
   };
@@ -175,7 +191,17 @@ const register = (props) => {
     })
       .then((response) => {
         setLoading(false);
-        props.history.push("/");
+        setRedirect(
+          <Redirect
+            to={{
+              pathname: "/redirecting",
+              state: {
+                redirectText:
+                  "Kayıt işlemi başarıyla tamamlandı. Lütfen mail adresine gelen linke tıklayarak hesabını aktifleştirmeyi unutma.",
+              },
+            }}
+          />
+        );
       })
       .catch((err) => {
         setLoading(false);
@@ -196,7 +222,7 @@ const register = (props) => {
         <Typography gutterBottom component="p" variant="body2" color="error">
           {axiosError ? axiosError : ""}
         </Typography>
-
+        {redirect}
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
             <Grid item xs={12}>
@@ -204,10 +230,10 @@ const register = (props) => {
                 fullWidth
                 required={fullName.validation.required}
                 onBlur={(event) => verifyName(event)}
-                onChange={(event) =>{
-                  setFullName({ ...fullName, value: event.target.value })
-                  verifyName(event)}
-                }
+                onChange={(event) => {
+                  setFullName({ ...fullName, value: event.target.value });
+                  verifyName(event);
+                }}
                 error={!fullName.isValid}
                 id="fullName"
                 label={fullName.label}
@@ -220,7 +246,7 @@ const register = (props) => {
               <TextField
                 fullWidth
                 required={email.validation.required}
-                onBlur={(event) =>verifyEmail(event)}
+                onBlur={(event) => verifyEmail(event)}
                 onChange={(event) =>
                   setEmail({ ...email, value: event.target.value })
                 }
@@ -236,7 +262,7 @@ const register = (props) => {
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
-                onBlur={(event) =>verifyPassword(event)}
+                onBlur={(event) => verifyPassword(event)}
                 required={password.validation.required}
                 onChange={(event) => {
                   setPassword({ ...password, value: event.target.value });
@@ -258,7 +284,10 @@ const register = (props) => {
                 onBlur={verifyPasswordCheck}
                 required={passwordCheck.validation.required}
                 onChange={(event) => {
-                  setPasswordCheck({ ...passwordCheck, value: event.target.value });
+                  setPasswordCheck({
+                    ...passwordCheck,
+                    value: event.target.value,
+                  });
                   verifyPasswordCheck(event);
                 }}
                 fullWidth
@@ -279,19 +308,21 @@ const register = (props) => {
             </Grid>
           </Grid>
 
-           <div className={classes.wrapper}>
-        <Button
-        fullWidth
-          variant="contained"
-          color="primary"
-          className={classes.submit}
-          disabled={loading || !isFormValid}
-          onClick={registerHandler}
-        >
-          Kayıt Ol
-        </Button>
-        {loading && <CircularProgress size={24} className={classes.buttonProgress} />}
-      </div>
+          <div className={classes.wrapper}>
+            <Button
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+              disabled={loading || !isFormValid}
+              onClick={registerHandler}
+            >
+              Kayıt Ol
+            </Button>
+            {loading && (
+              <CircularProgress size={24} className={classes.buttonProgress} />
+            )}
+          </div>
           <Grid container justify="flex-end">
             <Grid item>
               <Typography
