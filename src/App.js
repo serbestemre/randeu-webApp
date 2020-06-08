@@ -10,6 +10,7 @@ import Register from "./pages/Register/Register";
 import Auxiliary from "./hoc/Auxiliary/Auxiliary";
 import AboutUs from './pages/AboutUs/AboutUs';
 import Redirection from './containers/Redirection/Redirection';
+import ActivateUser from './containers/ActivateUser/ActivateUser';
 import * as actions  from "./store/actions/index";
 
 const App = (props) => {
@@ -49,6 +50,7 @@ if(isAuthenticated){
       <Route path="/kullanici/kayit"  component={Register} />
       <Route path="/redirecting"  render ={(props) => <Redirection redirectText={props.location.state ? props.location.state.redirectText : "" } {...props} />} />
       <Route path="/hakkimizda"  component={AboutUs} />
+      <Route path="/account/activate/:uuid" component={ActivateUser} />
       <Route path="/" exact component={Landing}/>
     </Layout>    
     </Switch>

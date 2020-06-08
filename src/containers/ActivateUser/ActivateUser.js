@@ -1,17 +1,39 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Grid, Typography } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { useTheme } from "@material-ui/core/styles";
+import axios from "../../axios";
 
-const redirection = (props) => {
+const activateUser = (props) => {
   const theme = useTheme();
-  const { redirectText } = props;
+
+  const [response, setResponse] = useState();
 
   useEffect(() => {
-    setTimeout(() => {
-      props.history.push("/");
-    }, 3000);
+    activationHandler(props.match.params.uuid);
   }, []);
+
+  const activationHandler = (uuid) => {
+    axios({
+      method: "GET",
+      url: `/account/activate/${uuid}`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        setResponse(response.data.message);
+        setTimeout(() => {
+          props.history.push("/");
+        }, 3000);
+      })
+      .catch((err) => {
+        setResponse(err.response.data.message)
+        setTimeout(() => {
+            props.history.push("/");
+          }, 3000);
+      });
+  };
 
   return (
     <Grid
@@ -31,7 +53,9 @@ const redirection = (props) => {
           style={{ color: theme.palette.info.main }}
         >
           <CircularProgress style={{ color: theme.palette.success.main }} />{" "}
-          Sayfa yönlendiriliyor....
+          {response
+            ? "Sayfa yönlendiriliyor..."
+            : "Hesabınız Aktifleştiriliyor...."}
         </Typography>
       </Grid>
       <Grid item xs={6} xl={6}>
@@ -41,11 +65,11 @@ const redirection = (props) => {
           align="center"
           style={{ color: theme.palette.success.main }}
         >
-          {redirectText}
+          {response ? response : "Lütfen bekleyiniz..."}
         </Typography>
       </Grid>
     </Grid>
   );
 };
 
-export default redirection;
+export default activateUser;
