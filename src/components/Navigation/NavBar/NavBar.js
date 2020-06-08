@@ -68,8 +68,20 @@ const navBar = (props) => {
     }
   });
 
+const mobileLinks = links.filter((link) => {
+  if (
+    link.show === "always" ||
+    (link.show === "not-auth" && isAuthenticated === null) ||
+    (link.show === "only-auth" && isAuthenticated !== null)
+  ) {
+    return true
+  }
+})
+
+
   if (!isMobileScreen) {
-    navigatorMenu = <Collapse menuList={links} />;
+    console.log("mobile links:", mobileLinks)
+    navigatorMenu = <Collapse menuList={mobileLinks} />;
   }
 
   return (
