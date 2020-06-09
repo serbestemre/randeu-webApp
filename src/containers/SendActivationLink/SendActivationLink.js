@@ -1,20 +1,16 @@
-import React, { useState, useCallback, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-
+import React, { useState, useEffect } from "react";
+import { Redirect } from "react-router-dom";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import { Link } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import VpnKeyOutlinedIcon from '@material-ui/icons/VpnKeyOutlined';
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import * as authActions from "../../store/actions/index";
+import axios from "../../axios";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -52,57 +48,53 @@ const useStyles = makeStyles((theme) => ({
 const login = (props) => {
   const classes = useStyles();
   const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-  const dispatch = useDispatch();
-
-  const isLoading = useSelector((state) => {
-    return state.auth.loading;
-  });
-
-  const isAuthenticated = useSelector((state) => {
-    return state.auth.token;
-  });
-
-  const hasError = useSelector((state) => {
-    return state.auth.error;
-  });
-
-  const onAuth = useCallback(
-    (email, password) => dispatch(authActions.auth(email, password)),
-    [dispatch]
-  );
-
-  const onAuthErrorClear = useCallback(() => dispatch(authActions.authErrorClear()), [dispatch]);
-
-useEffect(() => {
-  onAuthErrorClear();
-}, [onAuthErrorClear])
-
-
-useEffect(() => {
-  if(isAuthenticated){
-    props.history.push("/");
-  }
-},[isAuthenticated])
-
-  const loginHandler = (event) => {
-    onAuth(email, password);
-  };
+  const [isLoading, setLoading] = useState();
+  const [hasError, setHasError] = useState();
+  const [redirect, setRedirect] = useState();
+  
+  const sendActivationLink = () => {
+    setLoading(true);
+    axios({
+        method: "POST",
+        url: "/account/send-activation-email",
+        headers: {
+          "Content-Type": "application/json",
+        },data:{
+            email:email
+        },
+      })
+      .then( response => {
+        setLoading(false);
+        setRedirect( <Redirect
+            to={{
+              pathname: "/redirecting",
+              state: {
+                redirectText:
+                  `Aktivasyon linki ${email} adresine başarıyla gönderildi.`,
+              },
+            }}
+          />)
+      })
+      .catch( err => {
+        setLoading(false);
+        setHasError(err.response.data.message)
+  })
+}
 
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
+          <VpnKeyOutlinedIcon />
         </Avatar>
         <Typography gutterBottom component="h1" variant="h5">
-          Giriş Yap
+          Hesap Aktivasyon
         </Typography>
         <Typography gutterBottom component="p" variant="body2" color="error">
           {hasError ? hasError : ""}
         </Typography>
-
+        {redirect}
         <form className={classes.form} noValidate>
           <TextField
             variant="outlined"
@@ -116,22 +108,7 @@ useEffect(() => {
             autoComplete="email"
             autoFocus
           />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            onChange={(event) => setPassword(event.target.value)}
-            name="password"
-            label="Şifreniz"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-          />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Beni Hatırla"
-          />
+
           <div className={classes.wrapper}>
             <Button
               fullWidth
@@ -139,9 +116,9 @@ useEffect(() => {
               color="primary"
               className={classes.submit}
               disabled={isLoading}
-              onClick={loginHandler}
+              onClick={sendActivationLink}
             >
-              Giriş Yap
+              Aktivasyon Linkini Gönder
             </Button>
             {isLoading && (
               <CircularProgress size={24} className={classes.buttonProgress} />
@@ -149,25 +126,7 @@ useEffect(() => {
           </div>
 
           <Grid container>
-            <Grid item xs>
-              <Typography
-                variant="body2"
-                component={Link}
-                color="secondary"
-                to="/kullanici/kayit"
-              >
-                Şifremi Unuttum
-              </Typography>
-            </Grid>
             <Grid item>
-              <Typography
-                variant="body2"
-                component={Link}
-                color="secondary"
-                to="/kullanici/aktivasyon"
-              >
-                Aktivasyon Linki Gönder
-              </Typography>
             </Grid>
           </Grid>
         </form>
