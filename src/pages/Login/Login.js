@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -53,15 +53,17 @@ const login = (props) => {
   const classes = useStyles();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-
   const dispatch = useDispatch();
 
   const isLoading = useSelector((state) => {
     return state.auth.loading;
   });
 
+  const isAuthenticated = useSelector((state) => {
+    return state.auth.token;
+  });
+
   const hasError = useSelector((state) => {
-    console.log(state.auth.error);
     return state.auth.error;
   });
 
@@ -70,11 +72,21 @@ const login = (props) => {
     [dispatch]
   );
 
+  const onAuthErrorClear = useCallback(() => dispatch(authActions.authErrorClear()), [dispatch]);
+
+useEffect(() => {
+  onAuthErrorClear();
+}, [onAuthErrorClear])
+
+
+useEffect(() => {
+  if(isAuthenticated){
+    props.history.push("/");
+  }
+
+},[isAuthenticated])
   const loginHandler = (event) => {
     onAuth(email, password);
-    if (isLoading === false) {
-      props.history.push("/");
-    }
   };
 
   return (

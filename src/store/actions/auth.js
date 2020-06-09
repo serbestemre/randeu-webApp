@@ -79,6 +79,13 @@ export const initUserProfile = (userToken) => {
   };
 };
 
+export const authErrorClear = () => {
+    return {
+        type: actionTypes.AUTH_ERROR_CLEAR,
+        error: null
+    }
+}
+
 export const auth = (email, password) => {
   return (dispatch) => {
     dispatch(authStart());
