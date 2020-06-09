@@ -26,15 +26,15 @@ const header = (props) => {
   const dispatch = useDispatch();
 
   const businessTypesList = useSelector(state => {
-    return state.header.businessTypesList
+    return state.appointment.businessTypesList
   });
 
   const servicesList = useSelector(state => {
-    return state.header.servicesList
+    return state.appointment.servicesList
   });
 
   const businessList = useSelector(state => {
-    return state.header.businessList
+    return state.appointment.businessList
   })
 
   const onInitBusinessTypesList =useCallback(() =>dispatch(headerActions.initBusinessTypesList()), [dispatch]);

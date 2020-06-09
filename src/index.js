@@ -10,13 +10,13 @@ import authReducer from './store/reducers/auth'
 import "./index.css";
 import App from "./App";
 import registerServiceWorker from "./registerServiceWorker";
-import tabBarReducer  from './store/reducers/tabBar';
+import appointment  from './store/reducers/appointment';
 
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
-  header: tabBarReducer,
+  appointment: appointment,
   auth: authReducer
 })
 
