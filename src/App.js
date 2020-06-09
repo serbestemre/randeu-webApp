@@ -12,6 +12,7 @@ import AboutUs from './pages/AboutUs/AboutUs';
 import Redirection from './containers/Redirection/Redirection';
 import ActivateUser from './containers/ActivateUser/ActivateUser';
 import SendActivationLink from './containers/SendActivationLink/SendActivationLink'
+import AppointmentSearch from './pages/AppointmentSearch/AppointmentSearch';
 import * as actions  from "./store/actions/index";
 
 const App = (props) => {
@@ -51,6 +52,7 @@ if(isAuthenticated){
       <Route path="/kullanici/kayit"  component={Register} />
       <Route path="/redirecting"  render ={(props) => <Redirection redirectText={props.location.state ? props.location.state.redirectText : "" } {...props} />} />
       <Route path="/hakkimizda"  component={AboutUs} />
+      <Route path="/ara/randevu"  component={AppointmentSearch} />
       <Route path="/kullanici/aktivasyon"  component={SendActivationLink} />
       <Route path="/account/activate/:uuid" component={ActivateUser} />
       <Route path="/" exact component={Landing}/>
