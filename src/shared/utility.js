@@ -6,8 +6,6 @@ export const updateObject = (oldObject, updatedProperties) => {
 };
 
 export const checkValidity = (value, rules) => {
-
-  console.log("VERIFICATION FOR:>", value);
   let isValid = true;
   let helperText = "";
   if (!rules) {
@@ -45,7 +43,7 @@ export const checkValidity = (value, rules) => {
   }
 
   if (rules.isString) {
-    const pattern = /^[a-zA-Z_ *]+$/;
+    const pattern = /^[a-zA-Z_şŞğĞÖöÇçÜüİ\\p{L} *]+$/;
     isValid = pattern.test(value) && isValid && !value.trim() !== "";
     if (!isValid && !pattern.test(value)&& value.trim() !== ""){
          helperText = "Lütfen yalnızca alfabetik karakter giriniz";}
