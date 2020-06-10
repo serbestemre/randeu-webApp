@@ -49,7 +49,7 @@ const navBar = (props) => {
       // { id: 3, title: "İŞLETMELER", target: "#" },
       { id: 4, title: "Kayıt Ol", target: "/kullanici/kayit", show: "not-auth" },
       { id: 5, title: "Giriş Yap", target: "/kullanici/giris", show: "not-auth" },
-      { id: 5, title: `${user ? user.fullName.toUpperCase(): "..."}`, target: "/kullanici/profil", show: "only-auth" },
+      { id: 5, title: `${userProfile && user ? user.fullName.toUpperCase() : "..."}`, target: "/kullanici/profil", show: "only-auth" },
       { id: 6, title: "Çıkış Yap", target: "/cikis", show: "only-auth" },
     ];
 

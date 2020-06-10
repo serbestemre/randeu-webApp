@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: fade(theme.palette.background.paper, 0.8),
   },
   tabRoot: {
-    fontWeight: "bold"
+    fontWeight: "bold",
   }
 }));
 
