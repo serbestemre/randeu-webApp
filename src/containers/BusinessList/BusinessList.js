@@ -1,9 +1,9 @@
 import React, {useEffect, useCallback} from "react";
 import {useDispatch, useSelector  } from 'react-redux';
-import { Grid } from "@material-ui/core";
 import BusinessCard from '../../components/Card/BusinessCard/BusinessCard'
 import TabBar from "../../components/TabBar/TabBar"
 import * as actions from '../../store/actions/index'
+import { Grid  } from "@material-ui/core";
 
 const businessList = (props) => {
 
@@ -52,13 +52,25 @@ useEffect(() => {
 }, [onInitSearchByBusinessTypeName])
 
 
+const handleCardClick = () => {
+  console.log("card clicked")
+};
+
+const handleProfileClick = () => {
+  console.log("profile clicked")
+};
+
+const handleCalendarClick= () => {
+  console.log("calender clicked")
+};
+
         return ( 
-            <Grid container direction="column" >
-                <Grid item xs={5}>
+            <Grid container direction="column">
+                <Grid item xs={5} style={{ backgroundColor:"#efefef", border:"1px solid"}}>
                 <TabBar  businessTypes={businessTypesList} services={servicesList} businesses={businessList}/>
 
+                { searchResultList && searchResultList.map((business) => (<BusinessCard cardClickhandler={handleCardClick} calendarOnClick={handleCalendarClick} profileOnClick={handleProfileClick} businessName={business.businessName} employees={business.employeeList} commentCount={Math.floor(Math.random() * (100 - 30) + 30)}/>) ) }
                 </Grid>
-                { searchResultList && searchResultList.map((business) => (<Grid item><BusinessCard businessName={business.businessName} employees={business.employeeList} commentCount={Math.floor(Math.random() * (100 - 30) + 30)}/></Grid>) ) }
             </Grid>
            
         )
