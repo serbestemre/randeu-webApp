@@ -1,2 +1,2 @@
-export { initBusinessTypesList, initServicesList, initBusinessList } from "./appointment";
+export { initBusinessTypesList, initServicesList, initBusinessList, initSearchByBusinessTypeName } from "./appointment";
 export {auth, authLogout, authCheckState, authErrorClear} from "./auth"

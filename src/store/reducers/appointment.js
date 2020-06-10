@@ -8,22 +8,24 @@ const initialState = {
   businessList: null,
   businessListError: null,
   payload: null,
+  searchResultList: null,
+  searchResultListError: null,
 };
 
 const setServicesList = (state, action) => {
   return {
     ...state,
     servicesList: action.servicesList,
-    servicesListError:false
+    servicesListError: false,
   };
 };
 
 const fetchServicesListFailed = (state, action) => {
   return {
     ...state,
-    servicesListError:true
-  }
-}
+    servicesListError: true,
+  };
+};
 
 const setBusinessTypesList = (state, action) => {
   return {
@@ -44,16 +46,41 @@ const setBusinessList = (state, action) => {
   return {
     ...state,
     businessList: action.businessList,
-    businessListError:false
+    businessListError: false,
   };
 };
 
 const fetchBusinessListFailed = (state, action) => {
   return {
     ...state,
-    businessListError:true
-  }
-}
+    businessListError: true,
+  };
+};
+
+const searchByBusinessTypeNameStart = (state, action) => {
+  return {
+    ...state,
+    loading: true,
+  };
+};
+
+const searchByBusinessTypeNameSuccess = (state, action) => {
+  return {
+    ...state,
+    loading: false,
+    searchResultList: action.searchResultList,
+    searchResultListError: false,
+  };
+};
+
+const searchByBusinessTypeNameFailed = (state, action) => {
+  return {
+    ...state,
+    loading: false,
+    searchResultList: null,
+    searchResultListError: action.searchResultListError,
+  };
+};
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -63,12 +90,18 @@ const reducer = (state = initialState, action) => {
       return fetchBusinessTypesFailed(state, action);
     case actionTypes.SET_SERVICES_LIST:
       return setServicesList(state, action);
-      case actionTypes.FETCH_SERVICES_LIST_FAILED:
-      return fetchServicesListFailed(state,action);
+    case actionTypes.FETCH_SERVICES_LIST_FAILED:
+      return fetchServicesListFailed(state, action);
     case actionTypes.SET_BUSINESS_LIST:
       return setBusinessList(state, action);
-      case actionTypes.FETCH_BUSINESS_LIST_FAILED:
-        return fetchBusinessListFailed(state,action);
+    case actionTypes.FETCH_BUSINESS_LIST_FAILED:
+      return fetchBusinessListFailed(state, action);
+    case actionTypes.SEARCH_BY_BUSINESSTYPE_NAME_START:
+      return searchByBusinessTypeNameStart(state, action);
+    case actionTypes.SEARCH_BY_BUSINESSTYPE_NAME_SUCCESS:
+      return searchByBusinessTypeNameSuccess(state, action);
+    case actionTypes.SEARCH_BY_BUSINESSTYPE_NAME_FAILED:
+      return searchByBusinessTypeNameFailed(state, action);
     default:
       return state;
   }

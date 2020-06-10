@@ -1,10 +1,12 @@
 import React from 'react';
 import BusinessList from '../../containers/BusinessList/BusinessList'
 
-const appointmentSearch = () => {
+const appointmentSearch = (props) => {
+
+    const {searchedKeyword} = props;
 
     return (
-        <BusinessList/>
+        <BusinessList searchedKeyword={searchedKeyword}/>
     )
 
 }

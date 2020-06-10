@@ -24,6 +24,7 @@ const TabForm = (props) => {
   const classes = useStyles();
   const { list, error, optionLabel, textFieldPlaceholder } = props;
   const [redirect, setRedirect] = useState();
+  const [searchedKeyword, setSearchedKeyWord] = useState();
 
   let searchField = null;
 
@@ -36,25 +37,33 @@ const TabForm = (props) => {
   if (list) {
     searchField = (
       <Autocomplete
-        id="combo-box-demo"
-        options={list}
-        getOptionLabel={optionLabel}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            label={textFieldPlaceholder}
-            variant="outlined"
-          />
-        )}
-      />
-    );
+      freeSolo
+      id="randevu-arama-filtreleme"
+      disableClearable
+      autoSelect
+      autoComplete
+      onInputChange={(event,value)=> setSearchedKeyWord(value)}
+      options={list.map(optionLabel)}
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          label={textFieldPlaceholder}
+          variant="outlined"
+          InputProps={{ ...params.InputProps, type: 'search' }}
+        />
+      )}
+    /> );
   }
 
   const appointmentSearchHandler = () => {
+    console.log("sending as prop value of searchkeyword:" , searchedKeyword);
     setRedirect(
       <Redirect
         to={{
           pathname: "/ara/randevu",
+          state: {
+            searchedKeyword: searchedKeyword
+          },
         }}
       />
     );
@@ -68,15 +77,26 @@ const TabForm = (props) => {
         </Grid>
         {redirect}
         <Grid item xs={12} sm={6} md={5}>
+
+
           <Autocomplete
-            className={classes.root}
-            id="combo-box-demo"
-            options={cities}
-            getOptionLabel={(option) => option.title}
-            renderInput={(params) => (
-              <TextField {...params} label="Şehir Seçin" variant="outlined" />
-            )}
-          />
+      freeSolo
+      id="city-dropdown"
+      disableClearable
+      options={cities.map((opt => opt.title))}
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          label={"Şehir Seçin"}
+          variant="outlined"
+          onChange={(event) => {setSearchedKeyWord(event.target.value)}}
+          InputProps={{ ...params.InputProps, type: 'search' }}
+        />
+      )}
+    /> 
+
+
+
         </Grid>
 
         <Grid container item sm={12} md={2} alignItems={"center"}>

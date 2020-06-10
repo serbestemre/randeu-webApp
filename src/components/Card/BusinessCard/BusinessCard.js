@@ -85,7 +85,7 @@ const businessCard = (props) => {
 
             <Grid item>
             <Typography gutterBottom variant="subtitle" component="p">
-                {employees[0]}
+                {employees[0].employee}
               </Typography>
             </Grid>
 
@@ -100,75 +100,6 @@ const businessCard = (props) => {
    
       </Grid>
     </Grid>
-
-    //     <Grid
-    //       container
-    //       direction="row"
-    //       justify="flex-start"
-    //       alignItems="flex-start"
-    //       style={{
-    //         maxWidth: "max-content",
-    //         minWidth: "min-content",
-    //         borderBottom: "1px solid",
-    //       }}
-    //     >
-    //       <Grid
-    //         item contianer
-    //         style={{
-    //           backgroundImage: `url(${businessImg})`,
-    //           backgroundSize: "cover",
-    //           backgroundPosition: "center",
-    //           width: "180px",
-    //           height: "200px",
-    //           marginRight: "5px",
-    //         }}
-    //       ></Grid>
-
-    //   <Grid container item direction="column"
-    //   justify="space-between"
-    //   alignItems="flex-start">
-    //         <Typography variant="h5" component="h5">
-    //           {businessName}
-    //         </Typography>
-
-    //         <Grid container item direction="row" justify="space-between">
-    //           <Rating
-    //             name="half-rating-read"
-    //             defaultValue={2.5}
-    //             precision={0.5}
-    //             readOnly
-    //           />
-    //           <Typography variant="subtitle2" component="p">
-    //             ({commentCount}+ Yorum)
-    //           </Typography>
-    //         </Grid>
-
-    //         <Grid container alignItems="center" justify="center">
-    //           <Chip
-    //             variant="outlined"
-    //             color="primary"
-    //             deleteIcon={<DoneIcon />}
-    //             label="İsa Çapar"
-    //             onDelete={handleDelete}
-    //             avatar={<Avatar src="/static/images/avatar/1.jpg" />}
-    //           />
-    //           <Chip
-    //             variant="outlined"
-    //             color="primary"
-    //             deleteIcon={<DoneIcon />}
-    //             label="Volkan Yalçın"
-    //             onDelete={handleDelete}
-    //             avatar={<Avatar src="/static/images/avatar/1.jpg" />}
-    //           />
-    //         </Grid>
-
-    //       <Grid item>
-    //       <Button variant="contained" size="large" color="primary">
-    //             Takvimi İncele
-    //           </Button>
-    //       </Grid>
-    //   </Grid>
-    //     </Grid>
   );
 };
 

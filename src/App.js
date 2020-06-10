@@ -52,7 +52,7 @@ if(isAuthenticated){
       <Route path="/kullanici/kayit"  component={Register} />
       <Route path="/redirecting"  render ={(props) => <Redirection redirectText={props.location.state ? props.location.state.redirectText : "" } {...props} />} />
       <Route path="/hakkimizda"  component={AboutUs} />
-      <Route path="/ara/randevu"  component={AppointmentSearch} />
+      <Route path="/ara/randevu"  render= {(props) => <AppointmentSearch searchedKeyword={props.location.state ? props.location.state.searchedKeyword:"null prop geldi"} {...props}/>} />
       <Route path="/kullanici/aktivasyon"  component={SendActivationLink} />
       <Route path="/account/activate/:uuid" component={ActivateUser} />
       <Route path="/" exact component={Landing}/>
