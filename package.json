@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@fullcalendar/core": "^4.4.2",
+    "@fullcalendar/daygrid": "^4.4.2",
+    "@fullcalendar/react": "^4.4.2",
     "@material-ui/core": "^4.9.13",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.52",
@@ -31,6 +34,7 @@
     "fs-extra": "3.0.1",
     "html-webpack-plugin": "2.29.0",
     "jest": "20.0.4",
+    "node-sass": "^4.14.1",
     "object-assign": "4.1.1",
     "postcss-flexbugs-fixes": "3.2.0",
     "postcss-loader": "2.0.6",
@@ -45,8 +49,8 @@
     "style-loader": "0.18.2",
     "sw-precache-webpack-plugin": "0.11.4",
     "thunk": "0.0.1",
+    "to-string-loader": "^1.1.6",
     "url-loader": "0.5.9",
-    "webpack": "3.5.1",
     "webpack-dev-server": "2.7.1",
     "webpack-manifest-plugin": "1.2.1",
     "whatwg-fetch": "2.0.3"
@@ -96,5 +100,10 @@
   },
   "eslintConfig": {
     "extends": "react-app"
+  },
+  "devDependencies": {
+    "sass": "^1.26.8",
+    "sass-loader": "^7.3.1",
+    "webpack": "^3.5.1"
   }
 }

@@ -45,6 +45,8 @@ if(isAuthenticated){
 
   return (
    <Auxiliary>
+
+
     <Switch>
       <Layout>
       <Route path="/kullanici/giris"  component={Login} />
@@ -58,6 +60,7 @@ if(isAuthenticated){
       <Route path="/" exact component={Landing}/>
     </Layout>    
     </Switch>
+
    </Auxiliary>
   );
 };
