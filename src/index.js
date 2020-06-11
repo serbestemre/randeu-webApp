@@ -11,13 +11,15 @@ import "./index.css";
 import App from "./App";
 import registerServiceWorker from "./registerServiceWorker";
 import appointment  from './store/reducers/appointment';
+import scheduleReducer  from './store/reducers/scheduler';
 
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
   appointment: appointment,
-  auth: authReducer
+  auth: authReducer,
+  scheduler: scheduleReducer
 })
 
 

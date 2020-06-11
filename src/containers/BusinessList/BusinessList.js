@@ -4,7 +4,6 @@ import BusinessCard from "../../components/Card/BusinessCard/BusinessCard";
 import TabBar from "../../components/TabBar/TabBar";
 import * as actions from "../../store/actions/index";
 import { Grid, Typography } from "@material-ui/core";
-import FullCalendar from "../FullCalendar/FullCalendar";
 const businessList = (props) => {
   const { searchedKeyword } = props;
 
@@ -101,13 +100,8 @@ const businessList = (props) => {
         </Grid>
       </Grid>
 
-      <Grid item style={{ backgroundColor: "wheat" }} md={7}>
-        <FullCalendar
-          events={[
-            { title: "event 1", date: "2020-06-11" },
-            { title: "event 2", date: "2020-06-11" },
-          ]}
-        />
+      <Grid item style={{ border: '1px solid red' }} md={7}>
+
       </Grid>
     </Grid>
   );

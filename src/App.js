@@ -14,6 +14,7 @@ import ActivateUser from './containers/ActivateUser/ActivateUser';
 import SendActivationLink from './containers/SendActivationLink/SendActivationLink'
 import AppointmentSearch from './pages/AppointmentSearch/AppointmentSearch';
 import * as actions  from "./store/actions/index";
+import ReactScheduler from './containers/ReactScheduler/ReactScheduler';
 
 const App = (props) => {
 
@@ -46,10 +47,10 @@ if(isAuthenticated){
   return (
    <Auxiliary>
 
-
+    <ReactScheduler/>
     <Switch>
       <Layout>
-      <Route path="/kullanici/giris"  component={Login} />
+      {/* <Route path="/kullanici/giris"  component={Login} />
       {authRoutes}
       <Route path="/kullanici/kayit"  component={Register} />
       <Route path="/redirecting"  render ={(props) => <Redirection redirectText={props.location.state ? props.location.state.redirectText : "" } {...props} />} />
@@ -57,7 +58,7 @@ if(isAuthenticated){
       <Route path="/ara/randevu"  render= {(props) => <AppointmentSearch searchedKeyword={props.location.state ? props.location.state.searchedKeyword:"null prop geldi"} {...props}/>} />
       <Route path="/kullanici/aktivasyon"  component={SendActivationLink} />
       <Route path="/account/activate/:uuid" component={ActivateUser} />
-      <Route path="/" exact component={Landing}/>
+      <Route path="/" exact component={Landing}/> */}
     </Layout>    
     </Switch>
 
