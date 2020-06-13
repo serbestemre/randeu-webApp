@@ -1,26 +1,45 @@
 import * as actionTypes from '../actions/actionTypes'
-import { appointments } from '../../containers/ReactScheduler/appointments';
 
-const LOCATIONS = ['Room 1', 'Room 2', 'Room 3'];
+const initialState = {
+  loading: false,
+  error: null,
+  appointmentSchedule:[]
+}
 
+const fetchBusinessAppointmentScheduleStart = (state, action) => {
+  return {
+    ...state,
+    loading: true
+  }
+}
 
-const schedulerInitialState = {
-    data: appointments,
-    currentDate: '2018-06-27',
-    currentViewName: 'Week',
-    currentFilter: '',
-    locations: LOCATIONS,
-  };
-  
-  const schedulerReducer = (state = schedulerInitialState, action) => {
-    if (action.type === actionTypes.SCHEDULER_STATE_CHANGE_ACTION) {
-      return {
-        ...state,
-        [action.payload.partialStateName]: action.payload.partialStateValue,
-      };
-    }
-    return state;
-  };
+const fetchBusinessAppointmentScheduleSuccess = (state, action) => {
+  return {
+    ...state,
+    appointmentSchedule: action.appointmentSchedule,
+    error: null
+  }
+}
 
-  export default schedulerReducer;
+const fetchBusinessAppointmentScheduleFailed = (state, action) => {
+  return {
+    ...state,
+    error:action.error
+  }
+}
+
+const reducer = (state = initialState, action) => {
+  switch (action.type) {
+    case actionTypes.FETCH_BUSINESS_APPOINTMENT_SCHEDULE_START:
+      return fetchBusinessAppointmentScheduleStart(state,action);
+      case actionTypes.FETCH_BUSINESS_APPOINTMENT_SCHEDULE_SUCCESS:
+        return fetchBusinessAppointmentScheduleSuccess(state,action);
+    case actionTypes.FETCH_BUSINESS_APPOINTMENT_SCHEDULE_FAILED:
+       return fetchBusinessAppointmentScheduleFailed(state, action)
+      default:
+        return state;
+  }
+}
+
+  export default reducer;
   

@@ -19,7 +19,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const rootReducer = combineReducers({
   appointment: appointment,
   auth: authReducer,
-  scheduler: scheduleReducer
+  schedule: scheduleReducer
 })
 
 

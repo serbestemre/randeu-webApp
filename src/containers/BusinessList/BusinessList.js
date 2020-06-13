@@ -4,6 +4,8 @@ import BusinessCard from "../../components/Card/BusinessCard/BusinessCard";
 import TabBar from "../../components/TabBar/TabBar";
 import * as actions from "../../store/actions/index";
 import { Grid, Typography } from "@material-ui/core";
+import ReactScheduler from '../ReactScheduler/ReactScheduler'
+import ResourceScheduler from '../ReactScheduler/ResourceScheduler'
 const businessList = (props) => {
   const { searchedKeyword } = props;
 
@@ -101,7 +103,8 @@ const businessList = (props) => {
       </Grid>
 
       <Grid item style={{ border: '1px solid red' }} md={7}>
-
+                {/* <ReactScheduler/> */}
+                <ResourceScheduler/>
       </Grid>
     </Grid>
   );
