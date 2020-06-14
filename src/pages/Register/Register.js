@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "../../axios";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -106,39 +106,39 @@ const register = (props) => {
     let result = checkValidity(event.target.value, fullName.validation);
     setFullName({
       ...fullName,
-      ...result,
+      isValid:result.isValid,
+      helperText:result.helperText,
       value: event.target.value,
       touched: true,
     });
-    checkFormValidty();
   };
 
   const verifyEmail = (event) => {
-    setEmail({ email, touched: true });
+    setEmail({ email, touched: true, value:event.target.value });
     let result = checkValidity(event.target.value, email.validation);
-    setEmail({ ...email, ...result });
-    checkFormValidty();
+    setEmail({ ...email, ...result, value:event.target.value });
   };
 
   const verifyPassword = (event) => {
     let result = checkValidity(event.target.value, password.validation);
     setPassword({
       ...password,
-      ...result,
+      isValid:result.isValid,
+      helperText:result.helperText,
       value: event.target.value,
       touched: true,
     });
-    checkFormValidty();
+
   };
   const verifyPasswordCheck = (event) => {
     let result = checkValidity(event.target.value, passwordCheck.validation);
     setPasswordCheck({
       ...passwordCheck,
-      ...result,
+      isValid:result.isValid,
+      helperText:result.helperText,
       value: event.target.value,
       touched: true,
     });
-    checkFormValidty();
   };
 
   const errorHandler = (error) => {
@@ -154,7 +154,7 @@ const register = (props) => {
     }
   };
 
-  const checkFormValidty = () => {
+  useEffect(() => {
     if (
       fullName.isValid &&
       fullName.touched &&
@@ -170,7 +170,7 @@ const register = (props) => {
       console.log("invalid form");
       setIsFormValid(false);
     }
-  };
+  },[fullName,email,passwordCheck,password])
 
   const registerHandler = () => {
     setLoading(true);
@@ -229,9 +229,7 @@ const register = (props) => {
               <TextField
                 fullWidth
                 required={fullName.validation.required}
-                onBlur={(event) => verifyName(event)}
                 onChange={(event) => {
-                  setFullName({ ...fullName, value: event.target.value });
                   verifyName(event);
                 }}
                 error={!fullName.isValid}
@@ -246,9 +244,8 @@ const register = (props) => {
               <TextField
                 fullWidth
                 required={email.validation.required}
-                onBlur={(event) => verifyEmail(event)}
                 onChange={(event) =>
-                  setEmail({ ...email, value: event.target.value })
+                  verifyEmail(event)
                 }
                 error={!email.isValid}
                 id="email"
@@ -262,10 +259,8 @@ const register = (props) => {
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
-                onBlur={(event) => verifyPassword(event)}
                 required={password.validation.required}
                 onChange={(event) => {
-                  setPassword({ ...password, value: event.target.value });
                   verifyPassword(event);
                 }}
                 fullWidth
@@ -281,13 +276,9 @@ const register = (props) => {
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
-                onBlur={verifyPasswordCheck}
+               
                 required={passwordCheck.validation.required}
                 onChange={(event) => {
-                  setPasswordCheck({
-                    ...passwordCheck,
-                    value: event.target.value,
-                  });
                   verifyPasswordCheck(event);
                 }}
                 fullWidth
@@ -301,10 +292,10 @@ const register = (props) => {
               />
             </Grid>
             <Grid item xs={12}>
-              <FormControlLabel
+              {/* <FormControlLabel
                 control={<Checkbox value="allowExtraEmails" color="primary" />}
                 label="Sözleşmeyi onaylıyorum"
-              />
+              /> */}
             </Grid>
           </Grid>
 
