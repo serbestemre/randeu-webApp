@@ -4,15 +4,14 @@ import BusinessCard from "../../components/Card/BusinessCard/BusinessCard";
 import TabBar from "../../components/TabBar/TabBar";
 import * as actions from "../../store/actions/index";
 import { Grid, Typography } from "@material-ui/core";
-import ReactScheduler from '../ReactScheduler/ReactScheduler'
-import ResourceScheduler from '../ReactScheduler/ResourceScheduler'
-import {withRouter} from 'react-router-dom';
+import ReactScheduler from "../ReactScheduler/ReactScheduler";
+import ResourceScheduler from "../ReactScheduler/ResourceScheduler";
+import { withRouter } from "react-router-dom";
 
 const businessList = (props) => {
+  const queryParams = props.match.params;
 
-  const queryParams = props.match;
-
-  console.log("QUERY PARAMS:", queryParams)
+  console.log("QUERY PARAMS:", queryParams);
 
   const dispatch = useDispatch();
 
@@ -32,9 +31,24 @@ const businessList = (props) => {
   });
 
   const onInitSearchByBusinessTypeName = useCallback(
-    () => dispatch(actions.initSearchByBusinessTypeName(queryParams.searchedKeyword)),
+    () =>
+      dispatch(
+        actions.initSearchByBusinessTypeName(queryParams.searchedKeyword)
+      ),
     [dispatch]
   );
+
+  const onInitSearchByServiceName = useCallback(
+    () =>
+      dispatch(actions.initSearchByServiceName(queryParams.searchedKeyword)),
+    [dispatch]
+  );
+
+  const onInitSearchByBusinessName = useCallback(
+    () => dispatch(actions.initSearchBusinessName(queryParams.searchedKeyword)),
+    [dispatch]
+  );
+
   const onInitBusinessTypesList = useCallback(
     () => dispatch(actions.initBusinessTypesList()),
     [dispatch]
@@ -61,40 +75,73 @@ const businessList = (props) => {
   }, [onInitBusinessList]);
 
   useEffect(() => {
-    onInitSearchByBusinessTypeName();
+    if (queryParams.searchedType === "isyeri-turu") {
+      console.log(
+        "İşyeri türüne göre aranıyor...",
+        queryParams.searchedType +
+          " " +
+          queryParams.searchedKeyword +
+          " iş yeri türü aranıyor"
+      );
+      onInitSearchByBusinessTypeName();
+    } else if (queryParams.searchedType === "hizmet-tipi") {
+      console.log(
+        "hizmet-tipi türüne göre aranıyor...",
+        queryParams.searchedType +
+          " " +
+          queryParams.searchedKeyword +
+          " hizmet-tipi aranıyor"
+      );
+
+      onInitSearchByServiceName();
+    } else if (queryParams.searchedType === "isyeri-adi") {
+      console.log(
+        "is-yeri-adina göre aranıyor...",
+        queryParams.searchedType +
+          " " +
+          queryParams.searchedKeyword +
+          "isyeri aranıyor"
+      );
+      onInitSearchByBusinessName();
+    }
   }, [onInitSearchByBusinessTypeName]);
 
   return (
     <Grid container direction="row" justify="space-between">
       <Grid item md={4}>
-        <Grid item container direction="column" spacing={1} style={{ marginLeft:"5px", marginTop:"5px"}}>
-          <Grid
-            item 
-          >
-            <TabBar 
+        <Grid
+          item
+          container
+          direction="column"
+          spacing={1}
+          style={{ marginLeft: "5px", marginTop: "5px" }}
+        >
+          <Grid item>
+            <TabBar
               businessTypes={businessTypesList}
               services={servicesList}
               businesses={businessList}
             />
-            </Grid>
+          </Grid>
 
-            {searchResultList &&
-              searchResultList.map((business) => (
-              <Grid item><BusinessCard
+          {searchResultList &&
+            searchResultList.map((business) => (
+              <Grid item>
+                <BusinessCard
                   businessId={business._id}
                   businessName={business.businessName}
                   employees={business.employeeList}
                   address={business.address}
                   commentCount={Math.floor(Math.random() * (100 - 30) + 30)}
-                /></Grid>
-              ))}
-          
+                />
+              </Grid>
+            ))}
         </Grid>
       </Grid>
 
       <Grid item md={7}>
-                {/* <ReactScheduler/> */}
-                <ResourceScheduler/>
+        {/* <ReactScheduler/> */}
+        <ResourceScheduler />
       </Grid>
     </Grid>
   );

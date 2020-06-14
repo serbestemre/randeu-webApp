@@ -100,6 +100,97 @@ export const initBusinessTypesList = () => {
   };
 };
 
+export const searchByServiceNameStart = () => {
+  return {
+    type: actionTypes.SEARCH_BY_SERVICE_NAME_START,
+  }
+}
+
+export const searchByServiceNameSuccess = (businesslist) => {
+  return {
+    type: actionTypes.SEARCH_BY_SERVICE_NAME_SUCCESS,
+    searchResultList: businesslist,
+  }
+}
+
+export const searchByServiceNameFailed = (error) => {
+  return {
+    type: actionTypes.SEARCH_BY_SERVICE_NAME_FAILED,
+    searchResultListError: error,
+  }
+}
+
+
+export const initSearchByServiceName = (searchedKeyWord) => {
+  const payload = {  serviceName: searchedKeyWord}
+
+  return (dispatch) => {
+    dispatch(searchByServiceNameStart());
+    axios({
+      method: "POST",
+      url: "/business/businesslist-by-service",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      data: payload
+    })
+      .then((response) => {
+        console.log(response.data)
+        dispatch(searchByServiceNameSuccess(response.data.data));
+      })
+      .catch((error) => {
+        console.log("error:req:", error.request);
+        console.log("error response:", error.response);
+        dispatch(searchByServiceNameFailed(error.response));
+      });
+  };
+};
+
+export const searchByBusinessNameStart = ()  => {
+  return {
+    type: actionTypes.SEARCH_BY_BUSINESS_NAME_START
+  }
+}
+
+export const searchByBusinessNameSuccess = (businesslist)  => {
+  return {
+    type: actionTypes.SEARCH_BY_BUSINESS_NAME_SUCCESS,
+    searchResultList:businesslist
+  }
+}
+
+export const searchByBusinessNameFailed = (error)  => {
+  return {
+    type: actionTypes.SEARCH_BY_BUSINESS_NAME_START,
+    searchResultListError: error
+  }
+}
+
+export const initSearchBusinessName = (searchedKeyWord) => {
+  const payload = {  businessName: searchedKeyWord}
+
+  return (dispatch) => {
+    dispatch(searchByBusinessNameStart());
+    axios({
+      method: "POST",
+      url: "/business/businesslist-by-name",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      data: payload
+    })
+      .then((response) => {
+        console.log(response.data)
+        dispatch(searchByBusinessNameSuccess(response.data.data));
+      })
+      .catch((error) => {
+        console.log("error:req:", error.request);
+        console.log("error response:", error.response);
+        dispatch(searchByBusinessNameFailed(error.response));
+      });
+  };
+};
+
 export const initBusinessList = () => {
   return (dispatch) => {
     axios

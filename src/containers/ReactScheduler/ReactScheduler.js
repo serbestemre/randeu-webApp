@@ -18,8 +18,7 @@ import {
   AllDayPanel
 } from '@devexpress/dx-react-scheduler-material-ui';
 
-import appointments from './today-appointments';
-
+const appointments = []
 
 const reactScheduler = (props) => {
 const [data, setData] = useState(appointments)

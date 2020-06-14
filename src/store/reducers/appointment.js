@@ -8,8 +8,9 @@ const initialState = {
   businessList: null,
   businessListError: null,
   payload: null,
-  searchResultList: null,
+  searchResultList: [],
   searchResultListError: null,
+  loading: false,
 };
 
 const setServicesList = (state, action) => {
@@ -57,6 +58,29 @@ const fetchBusinessListFailed = (state, action) => {
   };
 };
 
+const searchByServiceNameStart = (state, action) => {
+  return {
+    ...state,
+    loading: true,
+  };
+};
+
+const searchByServiceNameSuccess = (state, action) => {
+  return {
+    ...state,
+    searchResultList: action.searchResultList,
+    loading: false,
+  };
+};
+
+const searchByServiceNameFailed = (state, action) => {
+  return {
+    ...state,
+    searchResultListError: action.searchResultListError,
+    loading: false,
+  };
+};
+
 const searchByBusinessTypeNameStart = (state, action) => {
   return {
     ...state,
@@ -82,6 +106,31 @@ const searchByBusinessTypeNameFailed = (state, action) => {
   };
 };
 
+const searchByBusinessNameFailed = (state, action) => {
+  return {
+    ...state,
+    loading: false,
+    searchResultList: null,
+    searchResultListError: action.searchResultListError,
+  };
+};
+
+const searchByBusinessNameSuccess = (state, action) => {
+  return {
+    ...state,
+    loading: false,
+    searchResultList: action.searchResultList,
+    searchResultListError: null,
+  };
+};
+
+const searchByBusinessNameStart = (state, action) => {
+  return {
+    ...state,
+    loading: true,
+  };
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.SET_BUSINESS_TYPES_LIST:
@@ -102,6 +151,18 @@ const reducer = (state = initialState, action) => {
       return searchByBusinessTypeNameSuccess(state, action);
     case actionTypes.SEARCH_BY_BUSINESSTYPE_NAME_FAILED:
       return searchByBusinessTypeNameFailed(state, action);
+    case actionTypes.SEARCH_BY_SERVICE_NAME_START:
+      return searchByServiceNameStart(state, action);
+    case actionTypes.SEARCH_BY_SERVICE_NAME_SUCCESS:
+      return searchByServiceNameSuccess(state, action);
+    case actionTypes.SEARCH_BY_SERVICE_NAME_FAILED:
+      return searchByServiceNameFailed(state, action);
+    case actionTypes.SEARCH_BY_BUSINESS_NAME_START:
+      return searchByBusinessNameStart(state, action);
+    case actionTypes.SEARCH_BY_BUSINESS_NAME_SUCCESS:
+      return searchByBusinessNameSuccess(state, action);
+    case actionTypes.SEARCH_BY_BUSINESS_NAME_FAILED:
+      return searchByBusinessNameFailed(state, action);
     default:
       return state;
   }
