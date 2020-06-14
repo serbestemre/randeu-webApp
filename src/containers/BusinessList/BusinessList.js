@@ -6,10 +6,13 @@ import * as actions from "../../store/actions/index";
 import { Grid, Typography } from "@material-ui/core";
 import ReactScheduler from '../ReactScheduler/ReactScheduler'
 import ResourceScheduler from '../ReactScheduler/ResourceScheduler'
-const businessList = (props) => {
-  const { searchedKeyword } = props;
+import {withRouter} from 'react-router-dom';
 
-  console.log("SEARCHED KEY WORD PROP: ", searchedKeyword);
+const businessList = (props) => {
+
+  const queryParams = props.match;
+
+  console.log("QUERY PARAMS:", queryParams)
 
   const dispatch = useDispatch();
 
@@ -29,7 +32,7 @@ const businessList = (props) => {
   });
 
   const onInitSearchByBusinessTypeName = useCallback(
-    () => dispatch(actions.initSearchByBusinessTypeName(searchedKeyword)),
+    () => dispatch(actions.initSearchByBusinessTypeName(queryParams.searchedKeyword)),
     [dispatch]
   );
   const onInitBusinessTypesList = useCallback(
@@ -61,48 +64,35 @@ const businessList = (props) => {
     onInitSearchByBusinessTypeName();
   }, [onInitSearchByBusinessTypeName]);
 
-  const handleCardClick = () => {
-    console.log("card clicked");
-  };
-
-  const handleProfileClick = () => {
-    console.log("profile clicked");
-  };
-
-  const handleCalendarClick = () => {
-    console.log("calender clicked");
-  };
-
   return (
     <Grid container direction="row" justify="space-between">
       <Grid item md={4}>
-        <Grid item container direction="column">
+        <Grid item container direction="column" spacing={1} style={{ marginLeft:"5px", marginTop:"5px"}}>
           <Grid
-            item
-            style={{ backgroundColor: "#efefef", border: "1px solid" }}
+            item 
           >
-            <TabBar
+            <TabBar 
               businessTypes={businessTypesList}
               services={servicesList}
               businesses={businessList}
             />
+            </Grid>
 
             {searchResultList &&
               searchResultList.map((business) => (
-                <BusinessCard
-                  cardClickhandler={handleCardClick}
-                  calendarOnClick={handleCalendarClick}
-                  profileOnClick={handleProfileClick}
+              <Grid item><BusinessCard
+                  businessId={business._id}
                   businessName={business.businessName}
                   employees={business.employeeList}
+                  address={business.address}
                   commentCount={Math.floor(Math.random() * (100 - 30) + 30)}
-                />
+                /></Grid>
               ))}
-          </Grid>
+          
         </Grid>
       </Grid>
 
-      <Grid item style={{ border: '1px solid red' }} md={7}>
+      <Grid item md={7}>
                 {/* <ReactScheduler/> */}
                 <ResourceScheduler/>
       </Grid>
@@ -110,4 +100,4 @@ const businessList = (props) => {
   );
 };
 
-export default businessList;
+export default withRouter(businessList);

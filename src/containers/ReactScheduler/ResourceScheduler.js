@@ -7,6 +7,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import moment from 'moment-timezone';
+import {withRouter} from 'react-router-dom';
 
 import {
   ViewState,
@@ -98,6 +99,8 @@ const resourceScheduler = (props) => {
   );
 
   useEffect(() => {
+    console.log("props-resouce scheduler", props)
+
     onInitAppointmentSchedule(
       currentDate,
       "5e80a919083af51738bf0b43"
@@ -167,10 +170,8 @@ useEffect(() => {
     console.log("double clicked", obj)
   }
 
-  console.log("RESOURCE SCHEDULER FETCHED=>", appointmentSchedule);
 
   const {  resources, grouping, groupByDate, isGroupByDate } = this.state;
-  
 
   return (
     <React.Fragment>
@@ -220,4 +221,4 @@ useEffect(() => {
   );
 };
 
-export default resourceScheduler;
+export default withRouter(resourceScheduler);

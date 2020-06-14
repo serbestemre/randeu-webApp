@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import {withRouter} from 'react-router-dom';
+
 import { Grid } from "@material-ui/core";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
@@ -22,7 +24,7 @@ const TabForm = (props) => {
   }));
 
   const classes = useStyles();
-  const { list, error, optionLabel, textFieldPlaceholder } = props;
+  const { searchedType, list, error, optionLabel, textFieldPlaceholder } = props;
   const [redirect, setRedirect] = useState();
   const [searchedKeyword, setSearchedKeyWord] = useState();
 
@@ -55,19 +57,24 @@ const TabForm = (props) => {
     /> );
   }
 
+  // const appointmentSearchHandler = () => {
+  //   console.log("sending as prop value of searchkeyword:" , searchedKeyword);
+  //   setRedirect(
+  //     <Redirect
+  //       to={{
+  //         pathname: "/ara/randevu",
+  //         state: {
+  //           searchedKeyword: searchedKeyword
+  //         },
+  //       }}
+  //     />
+  //   );
+  // };
+
+
   const appointmentSearchHandler = () => {
-    console.log("sending as prop value of searchkeyword:" , searchedKeyword);
-    setRedirect(
-      <Redirect
-        to={{
-          pathname: "/ara/randevu",
-          state: {
-            searchedKeyword: searchedKeyword
-          },
-        }}
-      />
-    );
-  };
+    props.history.push('/ara/randevu/' + searchedKeyword + "/" + searchedType);
+  }
 
   return (
     <form className={classes.root} noValidate autoComplete="off">
@@ -117,4 +124,4 @@ const TabForm = (props) => {
   );
 };
 
-export default TabForm;
+export default withRouter(TabForm);

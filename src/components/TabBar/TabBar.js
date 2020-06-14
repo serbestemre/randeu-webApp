@@ -123,14 +123,14 @@ useEffect(() => {
           </AppBar>
 
           <TabPanel value={value} index={0}>
-            <TabForm list={servicesList} error={servicesListError} optionLabel={(opt) => opt.serviceName} textFieldPlaceholder={"Hizmet tipi yazın..."}/>
+            <TabForm searchedType={"hizmet-tipi"} list={servicesList} error={servicesListError} optionLabel={(opt) => opt.serviceName} textFieldPlaceholder={"Hizmet tipi yazın..."}/>
           </TabPanel>
 
           <TabPanel value={value} index={1}>
-            <TabForm list={businessTypesList} error={businessTypesListError} optionLabel={(opt) => opt.businessTypeName} textFieldPlaceholder={"İşyeri tipi yazın..."}/>
+            <TabForm searchedType={"isyeri-turu"} list={businessTypesList} error={businessTypesListError} optionLabel={(opt) => opt.businessTypeName} textFieldPlaceholder={"İşyeri tipi yazın..."}/>
           </TabPanel>
           <TabPanel value={value} index={2}>
-            <TabForm list={businessList} error={businessListError} optionLabel={(opt) => opt.businessName}textFieldPlaceholder={"İşyeri adını yazın..."}/>
+            <TabForm searchedType={"isyeri-adi"} list={businessList} error={businessListError} optionLabel={(opt) => opt.businessName}textFieldPlaceholder={"İşyeri adını yazın..."}/>
           </TabPanel>
         </div>
       </Grid>
