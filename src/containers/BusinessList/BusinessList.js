@@ -133,6 +133,8 @@ const businessList = (props) => {
                   employees={business.employeeList}
                   address={business.address}
                   commentCount={Math.floor(Math.random() * (100 - 30) + 30)}
+                  star={Math.random() * (5-3)+3}
+          
                 />
               </Grid>
             ))}

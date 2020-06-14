@@ -3,6 +3,7 @@ import {withRouter} from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
+import {Grid} from '@material-ui/core';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -12,6 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import BusinessImg from '../../../assets/images/beauty-shop.jpg'
 import Box from '@material-ui/core/Box';
 import { Redirect } from "react-router-dom";
+import Rating from '@material-ui/lab/Rating';
 
 
 
@@ -55,9 +57,20 @@ const businessCard = (props) => {
           <Typography gutterBottom variant="h5" component="h2">
             {businessName}
           </Typography>
+          <Grid container direction="row" justify="space-between">
+          <Rating name="half-rating-read" defaultValue={star} precision={0.5} readOnly />
           <Typography variant="body2" color="textSecondary" component="p">
-            {address}
+            ({commentCount}+ Yorum)
           </Typography>
+          </Grid>
+          <Grid container direction="column">
+          <Typography variant="subtitle1" color="textPrimary" component="p">
+            Uzman & İş Sahibi: {employees[0].employee}
+          </Typography>
+          <Typography variant="body2" color="textSecondary" component="p">
+            Adres: {address}
+          </Typography>
+          </Grid>
         </CardContent>
       </CardActionArea>
       <CardActions>
