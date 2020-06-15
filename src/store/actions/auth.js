@@ -101,7 +101,6 @@ export const auth = (email, password) => {
       },
     })
       .then((response) => {
-        console.log(response);
         localStorage.setItem("token", response.data.data.token);
         dispatch(authSuccess(response.data.data.token));
         dispatch(initUserProfile(response.data.data.token));

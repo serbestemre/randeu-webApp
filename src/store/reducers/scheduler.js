@@ -9,7 +9,8 @@ const initialState = {
 const fetchBusinessAppointmentScheduleStart = (state, action) => {
   return {
     ...state,
-    loading: true
+    loading: true,
+    appointmentSchedule:[]
   }
 }
 

@@ -1,6 +1,8 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import BusinessCard from "../../components/Card/BusinessCard/BusinessCard";
+import { NavLink } from "react-router-dom";
+
 import TabBar from "../../components/TabBar/TabBar";
 import * as actions from "../../store/actions/index";
 import { Grid, Typography } from "@material-ui/core";
@@ -9,9 +11,9 @@ import ResourceScheduler from "../ReactScheduler/ResourceScheduler";
 import { withRouter } from "react-router-dom";
 
 const businessList = (props) => {
-  const queryParams = props.match.params;
-
-  console.log("QUERY PARAMS:", queryParams);
+  const [queryParams, setQueryParams] = useState(props.match.params && props.match.params);
+  const [selectedBusinessId, setSelectedBusinessId] = useState();
+  const [selectedBusinessEmployeeList, setSelectedBusinessEmployeeList] = useState();
 
   const dispatch = useDispatch();
 
@@ -26,6 +28,7 @@ const businessList = (props) => {
   const businessList = useSelector((state) => {
     return state.appointment.businessList;
   });
+
   const searchResultList = useSelector((state) => {
     return state.appointment.searchResultList;
   });
@@ -76,35 +79,18 @@ const businessList = (props) => {
 
   useEffect(() => {
     if (queryParams.searchedType === "isyeri-turu") {
-      console.log(
-        "İşyeri türüne göre aranıyor...",
-        queryParams.searchedType +
-          " " +
-          queryParams.searchedKeyword +
-          " iş yeri türü aranıyor"
-      );
       onInitSearchByBusinessTypeName();
     } else if (queryParams.searchedType === "hizmet-tipi") {
-      console.log(
-        "hizmet-tipi türüne göre aranıyor...",
-        queryParams.searchedType +
-          " " +
-          queryParams.searchedKeyword +
-          " hizmet-tipi aranıyor"
-      );
-
       onInitSearchByServiceName();
     } else if (queryParams.searchedType === "isyeri-adi") {
-      console.log(
-        "is-yeri-adina göre aranıyor...",
-        queryParams.searchedType +
-          " " +
-          queryParams.searchedKeyword +
-          "isyeri aranıyor"
-      );
       onInitSearchByBusinessName();
     }
   }, [onInitSearchByBusinessTypeName]);
+
+const getSelectedBusinessData = (businessId, employeeList) => {
+  setSelectedBusinessId(businessId)
+  setSelectedBusinessEmployeeList(employeeList)
+}
 
   return (
     <Grid container direction="row" justify="space-between">
@@ -126,16 +112,16 @@ const businessList = (props) => {
 
           {searchResultList &&
             searchResultList.map((business) => (
-              <Grid item>
-                <BusinessCard
-                  businessId={business._id}
-                  businessName={business.businessName}
-                  employees={business.employeeList}
-                  address={business.address}
-                  commentCount={Math.floor(Math.random() * (100 - 30) + 30)}
-                  star={Math.random() * (5-3)+3}
-          
-                />
+              <Grid item key={business._id}>
+                  <BusinessCard
+                    businessId={business._id}
+                    businessName={business.businessName}
+                    employees={business.employeeList}
+                    address={business.address}
+                    commentCount={25}
+                    onClickHandler={getSelectedBusinessData}
+                    star={4}
+                  />
               </Grid>
             ))}
         </Grid>
@@ -143,7 +129,7 @@ const businessList = (props) => {
 
       <Grid item md={7}>
         {/* <ReactScheduler/> */}
-        <ResourceScheduler />
+        <ResourceScheduler selectedBusinessId={selectedBusinessId} employeeList={selectedBusinessEmployeeList}/>
       </Grid>
     </Grid>
   );

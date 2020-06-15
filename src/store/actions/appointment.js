@@ -42,7 +42,6 @@ export const searchByBusinessTypeNameFailed = (error) => {
 };
 
 export const initSearchByBusinessTypeName = (searchedKeyWord) => {
-  console.log("dispatch param:", searchedKeyWord);
 
 const payload = {  businessTypeName: searchedKeyWord}
 
@@ -57,7 +56,6 @@ const payload = {  businessTypeName: searchedKeyWord}
       data: payload
     })
       .then((response) => {
-        console.log(response.data)
         dispatch(searchByBusinessTypeNameSuccess(response.data.data));
       })
       .catch((error) => {
@@ -135,7 +133,6 @@ export const initSearchByServiceName = (searchedKeyWord) => {
       data: payload
     })
       .then((response) => {
-        console.log(response.data)
         dispatch(searchByServiceNameSuccess(response.data.data));
       })
       .catch((error) => {
@@ -180,7 +177,6 @@ export const initSearchBusinessName = (searchedKeyWord) => {
       data: payload
     })
       .then((response) => {
-        console.log(response.data)
         dispatch(searchByBusinessNameSuccess(response.data.data));
       })
       .catch((error) => {

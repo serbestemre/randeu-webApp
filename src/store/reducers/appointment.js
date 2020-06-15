@@ -61,6 +61,7 @@ const fetchBusinessListFailed = (state, action) => {
 const searchByServiceNameStart = (state, action) => {
   return {
     ...state,
+    searchResultList:[],
     loading: true,
   };
 };
@@ -84,6 +85,7 @@ const searchByServiceNameFailed = (state, action) => {
 const searchByBusinessTypeNameStart = (state, action) => {
   return {
     ...state,
+    searchResultList:[],
     loading: true,
   };
 };
@@ -127,6 +129,7 @@ const searchByBusinessNameSuccess = (state, action) => {
 const searchByBusinessNameStart = (state, action) => {
   return {
     ...state,
+    searchResultList:[],
     loading: true,
   };
 };

@@ -6,7 +6,6 @@ import { green, lightBlue } from "@material-ui/core/colors";
 import { withStyles } from "@material-ui/core/styles";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import moment from 'moment-timezone';
 import {withRouter} from 'react-router-dom';
 
 import {
@@ -14,7 +13,6 @@ import {
   EditingState,
   GroupingState,
   IntegratedGrouping,
-  IntegratedEditing,
 } from "@devexpress/dx-react-scheduler";
 import {
   Scheduler,
@@ -22,7 +20,6 @@ import {
   Appointments,
   AppointmentTooltip,
   AppointmentForm,
-  DragDropProvider,
   GroupingPanel,
   WeekView,
   MonthView,
@@ -37,10 +34,26 @@ import {
 const isWeekOrMonthView = (viewName) =>
   viewName === "Week" || viewName === "Month";
 
-const priorityData = [
+let priorityData = [
   { text: "Business Owner", id: "5e8099790c15944a5cb4626b", color: lightBlue },
   { text: "Employee", id: "5e80a7f1b4f67306f848af86", color: green },
 ];
+
+
+const generateEmpData = (employeeList) => {
+  
+  let newEmplist=[];
+
+employeeList.forEach(employee => {
+  newEmplist.push({text:"çalışan", id:employee.employee, color:green})
+
+  priorityData = newEmplist;
+})
+
+
+}
+
+
 
 const styles = ({ spacing, palette, typography }) => ({
   formControlLabel: {
@@ -71,14 +84,22 @@ const GroupOrderSwitcher = withStyles(styles, {
 
 
 const resourceScheduler = (props) => {
+    const [data, setData] = useState([]);
   const [currentDate, setCurrentDate] = useState(Date.now());
-
+  
   const currentDateChange = (currentDateParam) => {
     setCurrentDate(currentDateParam);
   };
+  const {selectedBusinessId, employeeList} = props;
 
+  useEffect(() =>{
+    if(employeeList){
+       generateEmpData(employeeList);
+
+    }
+  },[employeeList])
+  
   useEffect(() => {
-    console.log("CURRENT DATE=>", currentDate)
   },[currentDate])
   const dispatch = useDispatch();
 
@@ -87,11 +108,10 @@ const resourceScheduler = (props) => {
   });
 
   const onInitAppointmentSchedule = useCallback(
-    (startDate, endDate, businessId) =>
+    (startDate, businessId) =>
       dispatch(
         actions.initFetchBusinessAppointmentSchedule(
           startDate,
-          endDate,
           businessId
         )
       ),
@@ -99,26 +119,29 @@ const resourceScheduler = (props) => {
   );
 
   useEffect(() => {
-    console.log("props-resouce scheduler", props)
+    if(selectedBusinessId){
+    console.log("get calendar http req gönderildi:", selectedBusinessId)
 
     onInitAppointmentSchedule(
       currentDate,
-      "5e80a919083af51738bf0b43"
+      selectedBusinessId
     );
-  }, [onInitAppointmentSchedule, currentDate]);
+  }
+  }, [onInitAppointmentSchedule, currentDate, selectedBusinessId]);
   
-  const [data, setData] = useState([]);
+
 
 useEffect(() => {
+  console.log("appSchedule:", appointmentSchedule)
   setData(appointmentSchedule)
-},[appointmentSchedule])
+},[appointmentSchedule,onInitAppointmentSchedule])
 
   this.state = {
     resources: [
       {
         fieldName: "employee",
         title: "Çalışan",
-        instances: priorityData,
+        instances: priorityData
       },
     ],
     grouping: [
@@ -167,7 +190,6 @@ useEffect(() => {
   };
 
   const doubleClicked = (obj) => {
-    console.log("double clicked", obj)
   }
 
 

@@ -44,7 +44,6 @@ export const initFetchBusinessAppointmentSchedule = (
       data: payload,
     })
     .then((response) => {
-      console.log("business appoinment success response => ", response);
       dispatch(fetcBusinessAppointmentScheduleSuccess(response.data.data));
     }).catch((err) => {
       console.log("business appointment error:", err);

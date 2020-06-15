@@ -19,18 +19,8 @@ import Rating from '@material-ui/lab/Rating';
 
 
 const businessCard = (props) => {
-
-  const [redirect, setRedirect] = useState();
-
-  const calendarHandler  =(businessId) => {
-    props.history.push('/ara/randevu/' + businessId)
-  } 
-  
-  const detailHandler  =(businessId) => {
-    props.history.push('/ara/randevu' + businessId);
-  } 
-  
   const {
+    onClickHandler,
     businessId,
     businessName,
     address,
@@ -38,7 +28,12 @@ const businessCard = (props) => {
     star,
     commentCount,
   } = props;
+  const [redirect, setRedirect] = useState();
 
+
+  const detailHandler  = (businessId) => {
+    // props.history.push('/ara/randevu' + businessId);
+  }
 
   return (
     
@@ -77,7 +72,7 @@ const businessCard = (props) => {
         <Button size="small" color="primary" onClick={detailHandler}>
           PROFIL
         </Button>
-        <Button size="small" color="primary" onClick={() =>calendarHandler(businessId)}>
+        <Button size="small" color="primary" onClick={() =>onClickHandler(businessId,employees)}>
           TAKVİME İNCELE
         </Button>
       </CardActions>
