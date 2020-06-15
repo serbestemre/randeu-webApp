@@ -44,15 +44,12 @@ const generateEmpData = (employeeList) => {
   
   let newEmplist=[];
 
-employeeList.forEach(employee => {
-  newEmplist.push({text:"çalışan", id:employee.employee, color:green})
+employeeList.forEach(emp => {
+  newEmplist.push({text:emp.employee, id:emp.employee, color:green})
 
   priorityData = newEmplist;
 })
-
-
 }
-
 
 
 const styles = ({ spacing, palette, typography }) => ({
@@ -67,19 +64,6 @@ const styles = ({ spacing, palette, typography }) => ({
     fontSize: "1rem",
   },
 });
-
-const GroupOrderSwitcher = withStyles(styles, {
-  name: "ResourceSwitcher",
-})(({ isGroupByDate, onChange, classes }) => (
-  <FormControlLabel
-    control={
-      <Checkbox checked={isGroupByDate} onChange={onChange} color="primary" />
-    }
-    label="Group by Date First"
-    className={classes.formControlLabel}
-    classes={{ label: classes.text }}
-  />
-));
 
 
 
@@ -149,23 +133,9 @@ useEffect(() => {
         resourceName: "employee",
       },
     ],
-    groupByDate: isWeekOrMonthView,
-    isGroupByDate: true,
   };
 
-  useEffect(() => {
-    if(appointmentSchedule){
 
-    }
-  },[appointmentSchedule])
-
-  this.onGroupOrderChange = () => {
-    const { isGroupByDate } = this.state;
-    this.setState({
-      isGroupByDate: !isGroupByDate,
-      groupByDate: isGroupByDate ? undefined : isWeekOrMonthView,
-    });
-  };
 
   const commitChanges = ({ added, changed, deleted }) => {
     this.setState((state) => {
@@ -193,14 +163,10 @@ useEffect(() => {
   }
 
 
-  const {  resources, grouping, groupByDate, isGroupByDate } = this.state;
+  const {  resources, grouping, groupByDate } = this.state;
 
   return (
     <React.Fragment>
-      <GroupOrderSwitcher
-        isGroupByDate={isGroupByDate}
-        onChange={this.onGroupOrderChange}
-      />
       <Paper>
         <Scheduler data={data} locale="tr-TR">
           <ViewState

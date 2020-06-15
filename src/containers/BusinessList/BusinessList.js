@@ -1,12 +1,9 @@
 import React, { useEffect, useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import BusinessCard from "../../components/Card/BusinessCard/BusinessCard";
-import { NavLink } from "react-router-dom";
-
 import TabBar from "../../components/TabBar/TabBar";
 import * as actions from "../../store/actions/index";
 import { Grid, Typography } from "@material-ui/core";
-import ReactScheduler from "../ReactScheduler/ReactScheduler";
 import ResourceScheduler from "../ReactScheduler/ResourceScheduler";
 import { withRouter } from "react-router-dom";
 
@@ -93,6 +90,15 @@ const getSelectedBusinessData = (businessId, employeeList) => {
 }
 
   return (
+
+  <Grid container direction="column">
+      <Grid item>
+    <TabBar
+      businessTypes={businessTypesList}
+      services={servicesList}
+      businesses={businessList}
+    />
+  </Grid>
     <Grid container direction="row" justify="space-between">
       <Grid item md={4}>
         <Grid
@@ -102,13 +108,7 @@ const getSelectedBusinessData = (businessId, employeeList) => {
           spacing={1}
           style={{ marginLeft: "5px", marginTop: "5px" }}
         >
-          <Grid item>
-            <TabBar
-              businessTypes={businessTypesList}
-              services={servicesList}
-              businesses={businessList}
-            />
-          </Grid>
+
 
           {searchResultList &&
             searchResultList.map((business) => (
@@ -128,10 +128,15 @@ const getSelectedBusinessData = (businessId, employeeList) => {
       </Grid>
 
       <Grid item md={7}>
-        {/* <ReactScheduler/> */}
-        <ResourceScheduler selectedBusinessId={selectedBusinessId} employeeList={selectedBusinessEmployeeList}/>
+              { selectedBusinessId ?
+                        <ResourceScheduler selectedBusinessId={selectedBusinessId} employeeList={selectedBusinessEmployeeList}/>
+                        :
+                        <Typography variant="h2" component="h2" style={{ marginTop:"40%" }}>Takvimini görmek istediğiniz işyerini seçin</Typography>
+              }
+
       </Grid>
     </Grid>
+  </Grid>
   );
 };
 
