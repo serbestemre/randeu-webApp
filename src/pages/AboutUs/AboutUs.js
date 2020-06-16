@@ -23,10 +23,10 @@ const aboutUs = (props) => {
   return (
     <div>
       <Banner bannerTitle="Hakkımızda" />
-      <BusinessRegisterBar
+      {/* <BusinessRegisterBar
         title="İşyeriniz mi var?"
         paragraph="Bir çok kolaylıktan ücretsiz faydalanmak için"
-      />
+      /> */}
       <Grid
         className={classes.sectionGrid}
         container
