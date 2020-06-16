@@ -3,11 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../../store/actions/index";
 import Paper from "@material-ui/core/Paper";
 import { green, lightBlue } from "@material-ui/core/colors";
-import { withStyles } from "@material-ui/core/styles";
-import Checkbox from "@material-ui/core/Checkbox";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import {withRouter} from 'react-router-dom';
-
+import CommandLayout from "./CommandLayout"
+import { withRouter } from "react-router-dom";
+import AppLayout from './AppLayout'
+// import BasicLayout from './BasicLayout'
 import {
   ViewState,
   EditingState,
@@ -31,6 +30,50 @@ import {
   AllDayPanel,
 } from "@devexpress/dx-react-scheduler-material-ui";
 
+const messages = {
+  moreInformationLabel: '',
+};
+
+
+const services = [
+  {id:"5e8099240c15944a5cb46269", text:"Saç kesim"},
+
+]
+
+const SelectMenu = (props) => {
+  // eslint-disable-next-line react/destructuring-assignment
+  if (props.type === 'multilineTextEditor') {
+    return null;
+  } return <AppointmentForm.Select {...props} />;
+};
+
+const BasicLayout = ({ onFieldChange, appointmentData, ...restProps }) => {
+  const onServiceFieldChange = (nextValue) => {
+    onFieldChange({service: nextValue});
+  }
+
+  return (
+    <AppointmentForm.BasicLayout
+      appointmentData={appointmentData}
+      onFieldChange={onFieldChange}
+      {...restProps}
+    >
+      <AppointmentForm.Label
+      text="Hizmet Seçin"
+      type="title"
+    />
+      
+      <AppointmentForm.Select
+      value={appointmentData.service}
+      onValueChange={onServiceFieldChange}
+      availableOptions={services}
+      placeholder="Service field"
+      type="outlinedSelect"
+      />
+    </AppointmentForm.BasicLayout>
+  );
+};
+
 const isWeekOrMonthView = (viewName) =>
   viewName === "Week" || viewName === "Month";
 
@@ -39,17 +82,15 @@ let priorityData = [
   { text: "Employee", id: "5e80a7f1b4f67306f848af86", color: green },
 ];
 
+// const generateEmpData = (employeeList) => {
+//   let newEmplist = [];
 
-const generateEmpData = (employeeList) => {
-  
-  let newEmplist=[];
-
-employeeList.forEach(emp => {
-  newEmplist.push({text:emp.employee, id:emp.employee, color:green})
-
-  priorityData = newEmplist;
-})
-}
+//   employeeList.forEach((emp) => {
+//     newEmplist.push({ text: emp.fullName, id: emp._id, color: green });
+//     priorityData = newEmplist;
+//   });
+//   return newEmplist;
+// };
 
 
 const styles = ({ spacing, palette, typography }) => ({
@@ -65,27 +106,69 @@ const styles = ({ spacing, palette, typography }) => ({
   },
 });
 
-
-
 const resourceScheduler = (props) => {
-    const [data, setData] = useState([]);
+  const dispatch = useDispatch();
+  const [data, setData] = useState([]);
   const [currentDate, setCurrentDate] = useState(Date.now());
-  
+  const { selectedBusinessId } = props;
+  const [employeeList, setEmployeeList] = useState();
+  const onInitBusinessEmployeeList =useCallback((selectedBusinessId) =>dispatch(actions.initBusinessEmployeelist(selectedBusinessId)), [dispatch]);
+ 
+useEffect(() => {
+  onInitBusinessEmployeeList(selectedBusinessId)
+  if(businessEmployeelist){
+    setEmployeeList(businessEmployeelist.populatedEmployeeList)
+  }
+},[selectedBusinessId])
+
+
+const businessEmployeelist = useSelector(state => {
+  return state.business.employeelist
+});
+useEffect(() => {
+  if(businessEmployeelist){
+    setEmployeeList(businessEmployeelist)
+  }
+},[businessEmployeelist])
+
+
   const currentDateChange = (currentDateParam) => {
     setCurrentDate(currentDateParam);
   };
-  const {selectedBusinessId, employeeList} = props;
 
-  useEffect(() =>{
-    if(employeeList){
-       generateEmpData(employeeList);
+  const [resources, setResources] = useState([
+    {
+      fieldName: "employee",
+      title: "Çalışan",
+      instances: priorityData,
+    },
+  ])
+  const onInitScheduleAppointment =useCallback(( selectedBusinessId, employee, service, startDate, endDate) =>dispatch(actions.initScheduleAppointment( selectedBusinessId, employee, service, startDate, endDate)), [dispatch]);
+  const scheduleRequestMessage = useSelector(state => {
+    return state.schedule.scheduleRequestMessage
+  });
 
-    }
-  },[employeeList])
-  
   useEffect(() => {
-  },[currentDate])
-  const dispatch = useDispatch();
+    if (employeeList && employeeList.length > 0) {
+
+     let newEmplist = [];
+
+      employeeList.reverse().forEach((emp) => {
+      newEmplist.push({ text: emp.fullName, id: emp._id, color: green });
+      priorityData = newEmplist;
+      });
+      setResources([
+        {
+          fieldName: "employee",
+          title: "Çalışan Seçin",
+          instances: newEmplist,
+        },
+      ])
+    }
+  }, [employeeList]);
+
+  useEffect(() => {}, [currentDate]);
+
 
   const appointmentSchedule = useSelector((state) => {
     return state.schedule.appointmentSchedule;
@@ -94,76 +177,58 @@ const resourceScheduler = (props) => {
   const onInitAppointmentSchedule = useCallback(
     (startDate, businessId) =>
       dispatch(
-        actions.initFetchBusinessAppointmentSchedule(
-          startDate,
-          businessId
-        )
+        actions.initFetchBusinessAppointmentSchedule(startDate, businessId)
       ),
     [dispatch]
   );
 
   useEffect(() => {
-    if(selectedBusinessId){
-    console.log("get calendar http req gönderildi:", selectedBusinessId)
-
-    onInitAppointmentSchedule(
-      currentDate,
-      selectedBusinessId
-    );
-  }
+    if (selectedBusinessId) {
+      onInitAppointmentSchedule(currentDate, selectedBusinessId);
+    }
   }, [onInitAppointmentSchedule, currentDate, selectedBusinessId]);
-  
+
+  useEffect(() => {
+    setData(appointmentSchedule);
+  }, [appointmentSchedule, onInitAppointmentSchedule]);
 
 
-useEffect(() => {
-  console.log("appSchedule:", appointmentSchedule)
-  setData(appointmentSchedule)
-},[appointmentSchedule,onInitAppointmentSchedule])
-
-  this.state = {
-    resources: [
-      {
-        fieldName: "employee",
-        title: "Çalışan",
-        instances: priorityData
-      },
-    ],
-    grouping: [
-      {
-        resourceName: "employee",
-      },
-    ],
-  };
+const [grouping, setGrouping] = useState(  [
+  {
+    resourceName: "employee",
+  },
+])
 
 
 
   const commitChanges = ({ added, changed, deleted }) => {
-    this.setState((state) => {
-      let { data } = state;
+    const { employee, service, startDate, endDate,  } = added;
+    onInitScheduleAppointment( selectedBusinessId, employee, service, startDate, endDate);
+
+
       if (added) {
         const startingAddedId =
           data.length > 0 ? data[data.length - 1].id + 1 : 0;
-        data = [...data, { id: startingAddedId, ...added }];
+        setData([...data, { id: startingAddedId, ...added }]);
       }
       if (changed) {
-        data = data.map((appointment) =>
+        const newData = data.map((appointment) =>
           changed[appointment.id]
             ? { ...appointment, ...changed[appointment.id] }
             : appointment
         );
-      }
+        setData(newData)
       if (deleted !== undefined) {
-        data = data.filter((appointment) => appointment.id !== deleted);
+        const filteredData = data.filter((appointment) => appointment.id !== deleted);
+        setData(filteredData)
       }
-      return { data };
-    });
+      return data;
+    }
   };
 
   const doubleClicked = (obj) => {
-  }
 
-
-  const {  resources, grouping, groupByDate } = this.state;
+  };
 
   return (
     <React.Fragment>
@@ -174,8 +239,8 @@ useEffect(() => {
             onCurrentDateChange={currentDateChange}
             name="tr-TR"
           />
-          <EditingState onCommitChanges={this.commitChanges} />
-          <GroupingState grouping={grouping} groupByDate={groupByDate} />
+          <EditingState onCommitChanges={commitChanges} />
+          <GroupingState grouping={grouping} />
 
           <DayView
             name="Günlük"
@@ -183,16 +248,19 @@ useEffect(() => {
             endDayHour={20} // mesait bitiş saati
             cellDuration={30} // randevu aralığı
           />
-          <WeekView startDayHour={8.5} endDayHour={20}  />
+          <WeekView startDayHour={8.5} endDayHour={20} />
           <MonthView />
 
           <Appointments />
           <Resources data={resources} mainResourceName="employee" />
           <IntegratedGrouping />
-       
 
-          <AppointmentTooltip />
-          <AppointmentForm />
+          <AppointmentTooltip  />
+          {/* <AppointmentForm /> */}
+          <AppointmentForm basicLayoutComponent={BasicLayout}   selectComponent={SelectMenu}
+            messages={messages}/>          
+          {/* <AppointmentForm dateEditorComponent={AppLayout} commandLayoutComponent={CommandLayout} /> */}
+          {/* <AppointmentForm layoutComponent={BasicLayout} /> */}
 
           <Toolbar />
           <DateNavigator />

@@ -52,3 +52,60 @@ export const initFetchBusinessAppointmentSchedule = (
     });
   };
 };
+
+const scheduleAppointmentStart = () => {
+  return {
+    type: actionTypes.SCHEDULE_APPOINTMENT_START
+  }
+}
+
+
+const scheduleAppointmentSuccess = (responseMessage) => {
+  return {
+    type: actionTypes.SCHEDULE_APPOINTMENT_SUCCESS,
+    scheduleRequestMessage: responseMessage
+  }
+}
+
+const scheduleAppointmentFailed = (error) => {
+ return {
+  type: actionTypes.SCHEDULE_APPOINTMENT_FAILED,
+  scheduleRequestError: error
+ }
+}
+
+export const initScheduleAppointment = (selectedBusinessId, employee, service, startDate, endDate) => {
+
+  const token =   localStorage.getItem("token");
+  const rawObj = localStorage.getItem("userProfile");
+  const userProfile =  JSON.parse(rawObj);
+
+
+  const payload = {  
+  customerId: userProfile._id,
+  businessId: selectedBusinessId,
+	employeeId: employee,
+	serviceId: service,
+	startDate: startDate,
+	endDate: endDate
+  }
+  return (dispatch) => {
+    dispatch(scheduleAppointmentStart())
+    axios({
+      method: "POST",
+      url: "/appointment/request",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+      data: payload,
+    })
+    .then((response) => {
+      console.log("APP REQ RESP", response.data)
+      dispatch(scheduleAppointmentSuccess(response.data.data));
+    }).catch((err) => {
+      console.log("APP REQ ERRR",err.response)
+      dispatch(scheduleAppointmentFailed(err));
+    });
+  };
+}

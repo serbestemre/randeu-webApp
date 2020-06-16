@@ -12,6 +12,7 @@ import App from "./App";
 import registerServiceWorker from "./registerServiceWorker";
 import appointment  from './store/reducers/appointment';
 import scheduleReducer  from './store/reducers/scheduler';
+import businessReducer from './store/reducers/business';
 
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -19,7 +20,8 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const rootReducer = combineReducers({
   appointment: appointment,
   auth: authReducer,
-  schedule: scheduleReducer
+  schedule: scheduleReducer,
+  business:businessReducer
 })
 
 
