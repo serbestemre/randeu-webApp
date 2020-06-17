@@ -1,9 +1,6 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Paper from '@material-ui/core/Paper';
 import { ViewState } from '@devexpress/dx-react-scheduler';
-import MenuItem from '@material-ui/core/MenuItem';
-import TextField from '@material-ui/core/TextField';
-import { withStyles } from '@material-ui/core/styles';
 
 import {
   Scheduler,
@@ -18,12 +15,16 @@ import {
   AllDayPanel
 } from '@devexpress/dx-react-scheduler-material-ui';
 
-const appointments = []
 
 const reactScheduler = (props) => {
+const {appointments} = props;
 const [data, setData] = useState(appointments)
 const [currentDate, setCurrentDate] = useState(Date.now());
 
+
+useEffect(() => {
+setData(appointments)
+},[appointments])
 const currentDateChange = (currentDateParam)=> {
 setCurrentDate(currentDateParam);
 }
