@@ -1,5 +1,5 @@
 import React, {useEffect, useCallback} from "react";
-import {Route, Switch, withRouter} from 'react-router-dom';
+import {Route, Redirect, Switch, withRouter} from 'react-router-dom';
 import {useDispatch, useSelector  } from 'react-redux';
 import Landing from "./pages/Landing/Landing";
 import Layout from "./hoc/Layout/Layout";
@@ -56,7 +56,8 @@ if(isAuthenticated){
       <Route path="/ara/randevu/:searchedKeyword/:searchedType"  component={AppointmentSearch} />
       <Route path="/kullanici/aktivasyon"  component={SendActivationLink} />
       <Route path="/account/activate/:uuid" component={ActivateUser} />
-      <Route path="/" exact component={Landing}/>
+      <Route path="/"  exact component={Landing}/>
+      <Redirect to="/"/>
     </Layout>    
     </Switch>
 

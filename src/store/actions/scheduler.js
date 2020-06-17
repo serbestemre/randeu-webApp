@@ -1,4 +1,5 @@
 import * as actionTypes from "./actionTypes";
+import {initUserProfile} from "./index";
 import axios from "../../axios"
 
 export const fetchBusinessAppointmentSchedule = () => {
@@ -103,6 +104,10 @@ export const initScheduleAppointment = (selectedBusinessId, employee, service, s
     .then((response) => {
       console.log("APP REQ RESP", response.data)
       dispatch(scheduleAppointmentSuccess(response.data.data));
+      const token = localStorage.getItem("token");
+      if(token){
+        dispatch(initUserProfile(token));
+      }
     }).catch((err) => {
       console.log("APP REQ ERRR",err.response)
       dispatch(scheduleAppointmentFailed(err));

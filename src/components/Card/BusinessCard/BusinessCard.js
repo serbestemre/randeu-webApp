@@ -15,6 +15,7 @@ import Rating from '@material-ui/lab/Rating';
 const businessCard = (props) => {
   const {
     onClickHandler,
+    businessOwner,
     businessId,
     businessName,
     address,
@@ -55,7 +56,7 @@ const businessCard = (props) => {
           </Grid>
           <Grid container direction="column">
           <Typography variant="subtitle1" color="textPrimary" component="p">
-            Uzman & İş Sahibi: {employees[0].employee}
+            Uzman & İş Sahibi: {businessOwner}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
             Adres: {address}
@@ -64,9 +65,6 @@ const businessCard = (props) => {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary" onClick={detailHandler}>
-          PROFIL
-        </Button>
         <Button size="small" color="primary" onClick={() =>onClickHandler(businessId,employees)}>
           TAKVİME İNCELE
         </Button>

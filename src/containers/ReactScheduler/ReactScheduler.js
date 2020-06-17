@@ -23,8 +23,21 @@ const [currentDate, setCurrentDate] = useState(Date.now());
 
 
 useEffect(() => {
-setData(appointments)
+
+// if(appointments && appointments.length > 0){
+//   let newAppointments =[];
+
+//   appointments.forEach((item, index) => {
+//     newAppointments.push({title:item.businessName, startDate:item.startDate, endDate:item.endDate})
+//   })
+  
+//   console.log("APPOINTMENTS => ", newAppointments);
+  
+  setData(appointments)
+
+
 },[appointments])
+
 const currentDateChange = (currentDateParam)=> {
 setCurrentDate(currentDateParam);
 }
@@ -58,9 +71,9 @@ const styles = theme => ({
           />
           <DayView
           name="Günlük"
-            startDayHour={9} // mesai başlangıç saati
-            endDayHour={18} // mesait bitiş saati
-            cellDuration={20} // randevu aralığı
+            startDayHour={0} // mesai başlangıç saati
+            endDayHour={24} // mesait bitiş saati
+            cellDuration={30} // randevu aralığı
           />
           <WeekView
             name="Haftalık"

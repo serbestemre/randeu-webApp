@@ -3,9 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../../store/actions/index";
 import Paper from "@material-ui/core/Paper";
 import { green, lightBlue } from "@material-ui/core/colors";
-import CommandLayout from "./CommandLayout";
 import { withRouter } from "react-router-dom";
-import AppLayout from "./AppLayout";
 // import BasicLayout from './BasicLayout'
 import {
   ViewState,
@@ -156,6 +154,7 @@ const resourceScheduler = (props) => {
       instances: priorityData,
     },
   ]);
+
   const onInitScheduleAppointment = useCallback(
     (selectedBusinessId, employee, service, startDate, endDate) =>
       dispatch(
@@ -171,6 +170,9 @@ const resourceScheduler = (props) => {
   );
   const scheduleRequestMessage = useSelector((state) => {
     return state.schedule.scheduleRequestMessage;
+  });
+  const token = useSelector((state) => {
+    return state.auth.token;
   });
 
   useEffect(() => {
@@ -233,13 +235,20 @@ const resourceScheduler = (props) => {
 
   const commitChanges = ({ added, changed, deleted }) => {
     const { employee, service, startDate, endDate } = added;
-    onInitScheduleAppointment(
-      selectedBusinessId,
-      employee,
-      service,
-      startDate,
-      endDate
-    );
+
+    if(token) {
+      onInitScheduleAppointment(
+        selectedBusinessId,
+        employee,
+        service,
+        startDate,
+        endDate
+      );
+  
+    }
+    // if(token){
+    //   onInitUserProfile(token)
+    // }
 
     if (added) {
       const startingAddedId =
@@ -263,8 +272,6 @@ const resourceScheduler = (props) => {
     }
   };
 
-  const doubleClicked = (obj) => {};
-
   return (
     <React.Fragment>
       <Paper>
@@ -274,7 +281,7 @@ const resourceScheduler = (props) => {
             onCurrentDateChange={currentDateChange}
             name="tr-TR"
           />
-          {/* <EditingState onCommitChanges={commitChanges} /> */}
+          <EditingState onCommitChanges={commitChanges} />
           <GroupingState grouping={grouping} />
 
           <DayView

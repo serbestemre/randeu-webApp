@@ -4,6 +4,7 @@ import { Grid, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
 import ReactScheduler from "../../containers/ReactScheduler/ReactScheduler"
+import UserAvatar from "../../assets/images/user-avatar.png"
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -46,7 +47,7 @@ const userProfile = (props) => {
           <Grid item md={5}>
             <Avatar
               alt="Remy Sharp"
-              src="https://lh3.googleusercontent.com/proxy/NIDwTy9ELfSaou16YiQ7girmfzYJUgXZEgIs0VRHmp6FPTTJmyrnyVXKml67d2j6iFc0ff3CfJMFqbvcZQUWSLmOqIrUK5ar3Tt-vww7rubEa0CHqluUk6Xo-w"
+              src={UserAvatar}
               className={classes.large}
             />
           </Grid>

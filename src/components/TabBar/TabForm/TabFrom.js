@@ -8,7 +8,6 @@ import Button from "@material-ui/core/Button";
 import SearchIcon from "@material-ui/icons/Search";
 import { makeStyles } from "@material-ui/core/styles";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { Redirect } from "react-router-dom";
 
 const TabForm = (props) => {
   const cities = [
@@ -39,7 +38,6 @@ const TabForm = (props) => {
   if (list) {
     searchField = (
       <Autocomplete
-      freeSolo
       id="randevu-arama-filtreleme"
       disableClearable
       autoSelect
@@ -57,23 +55,12 @@ const TabForm = (props) => {
     /> );
   }
 
-  // const appointmentSearchHandler = () => {
-  //   console.log("sending as prop value of searchkeyword:" , searchedKeyword);
-  //   setRedirect(
-  //     <Redirect
-  //       to={{
-  //         pathname: "/ara/randevu",
-  //         state: {
-  //           searchedKeyword: searchedKeyword
-  //         },
-  //       }}
-  //     />
-  //   );
-  // };
-
-
   const appointmentSearchHandler = () => {
+    console.log("app handler" , props)
+    
+    
     props.history.push('/ara/randevu/' + searchedKeyword + "/" + searchedType);
+    
   }
 
   return (
@@ -87,9 +74,9 @@ const TabForm = (props) => {
 
 
           <Autocomplete
-      freeSolo
       id="city-dropdown"
       disableClearable
+      defaultValue={[cities[0]]}
       options={cities.map((opt => opt.title))}
       renderInput={(params) => (
         <TextField

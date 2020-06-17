@@ -6,7 +6,7 @@ export {
   initSearchByServiceName,
   initSearchBusinessName,
 } from "./appointment";
-export { auth, authLogout, authCheckState, authErrorClear } from "./auth";
+export { auth, authLogout, authCheckState, authErrorClear, initUserProfile } from "./auth";
 export {
   initFetchBusinessAppointmentSchedule,
   initScheduleAppointment,

@@ -8,8 +8,10 @@ import ResourceScheduler from "../ReactScheduler/ResourceScheduler";
 import { withRouter } from "react-router-dom";
 
 const businessList = (props) => {
-  const [queryParams, setQueryParams] = useState(props.match.params && props.match.params);
+  // const [queryParams, setQueryParams] = useState(props.match.params && props.match.params);
   const [selectedBusinessId, setSelectedBusinessId] = useState();
+  const [businessSearchList, setBusinessSearchList] = useState();
+  const {queryParams} = props;
   const [selectedBusinessEmployeeList, setSelectedBusinessEmployeeList] = useState();
 
   const dispatch = useDispatch();
@@ -18,6 +20,9 @@ const businessList = (props) => {
     return state.appointment.businessTypesList;
   });
 
+  useEffect(() => {
+    console.log("BUSINESS LIST RENDERED")
+  },[])
   const servicesList = useSelector((state) => {
     return state.appointment.servicesList;
   });
@@ -89,6 +94,30 @@ const getSelectedBusinessData = (businessId, employeeList) => {
   setSelectedBusinessEmployeeList(employeeList)
 }
 
+
+const list =searchResultList &&
+  searchResultList.map((business) => (
+    <Grid item key={business._id}>
+        <BusinessCard
+        businessOwner={business.populatedBusinessOwners ? business.populatedBusinessOwners[0].fullName : business.businessOwnerList[0].businessOwner.fullName}
+          businessId={business._id}
+          businessName={business.businessName}
+          employees={business.employeeList}
+          address={business.address}
+          commentCount={25}
+          onClickHandler={getSelectedBusinessData}
+          star={4}
+        />
+    </Grid>
+  ))
+
+  useEffect(() => {
+    console.log("Use effected");
+    setBusinessSearchList(list)
+  },[searchResultList])
+
+
+  
   return (
 
   <Grid container direction="column">
@@ -108,28 +137,15 @@ const getSelectedBusinessData = (businessId, employeeList) => {
           spacing={1}
           style={{ marginLeft: "5px", marginTop: "5px" }}
         >
-
-
-          {searchResultList &&
-            searchResultList.map((business) => (
-              <Grid item key={business._id}>
-                  <BusinessCard
-                    businessId={business._id}
-                    businessName={business.businessName}
-                    employees={business.employeeList}
-                    address={business.address}
-                    commentCount={25}
-                    onClickHandler={getSelectedBusinessData}
-                    star={4}
-                  />
-              </Grid>
-            ))}
+{businessSearchList}
         </Grid>
       </Grid>
 
       <Grid item md={7}>
+        
               { selectedBusinessId ?
-                        <ResourceScheduler selectedBusinessId={selectedBusinessId} employeeList={selectedBusinessEmployeeList}/>
+              <div><Typography style={{marginTop:"15px"}} variant="body" component="p" color="secondary">Randevu almak istediğiniz saat aralığına çift tıklayınız..</Typography>
+              <ResourceScheduler selectedBusinessId={selectedBusinessId} employeeList={selectedBusinessEmployeeList}/></div>
                         :
                         <Typography variant="h2" component="h2" style={{ marginTop:"40%" }}>Takvimini görmek istediğiniz işyerini seçin</Typography>
               }

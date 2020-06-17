@@ -70,6 +70,9 @@ export const initUserProfile = (userToken) => {
       .then((response) => {
         console.log("user profile:", response.data.data);
         const convertedData = JSON.stringify(response.data.data);
+        if(localStorage.getItem("userProfile")){
+          localStorage.removeItem("userProfile");
+        }
         localStorage.setItem("userProfile", convertedData );
         dispatch(setUserProfileSuccess(response.data.data));
       })
