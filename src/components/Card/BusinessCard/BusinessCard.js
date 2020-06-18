@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState,} from 'react';
 import {withRouter} from 'react-router-dom';
 import Card from '@material-ui/core/Card';
 import {Grid} from '@material-ui/core';
@@ -8,7 +8,6 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import BusinessImg from '../../../assets/images/beauty-shop.jpg'
 import Box from '@material-ui/core/Box';
 import Rating from '@material-ui/lab/Rating';
 
@@ -21,14 +20,10 @@ const businessCard = (props) => {
     address,
     employees,
     star,
+    imgUrl,
     commentCount,
   } = props;
-  const [redirect, setRedirect] = useState();
-
-
-  const detailHandler  = (businessId) => {
-    // props.history.push('/ara/randevu' + businessId);
-  }
+  const [redirect] = useState();
 
 
   return (
@@ -41,7 +36,7 @@ const businessCard = (props) => {
           component="img"
           alt="Contemplative Reptile"
           height="250"
-          image={BusinessImg}
+          image={ imgUrl ? imgUrl : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ10WQ2no-18NL4b4bOz7iyMobBLVB6ypQAaCynbD6qsjigDqI80Q&s"}
           title="Contemplative Reptile"
         />
         <CardContent>
@@ -56,7 +51,7 @@ const businessCard = (props) => {
           </Grid>
           <Grid container direction="column">
           <Typography variant="subtitle1" color="textPrimary" component="p">
-            Uzman & İş Sahibi: {businessOwner}
+            {businessOwner}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
             Adres: {address}

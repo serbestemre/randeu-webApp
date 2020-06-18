@@ -42,20 +42,6 @@ const currentDateChange = (currentDateParam)=> {
 setCurrentDate(currentDateParam);
 }
 
-
-const styles = theme => ({
-  container: {
-    display: 'flex',
-    marginBottom: theme.spacing(2),
-    justifyContent: 'flex-end',
-  },
-  text: {
-    ...theme.typography.h6,
-    marginRight: theme.spacing(2),
-  },
-});
-
-
     return (
  
       <Paper>

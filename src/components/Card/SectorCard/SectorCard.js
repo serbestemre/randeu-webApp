@@ -5,7 +5,6 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
-import Button from "@material-ui/core/Button";
 import { Grid } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import List from "@material-ui/core/List";
@@ -28,7 +27,7 @@ export default function ImgMediaCard(props) {
   const {businessTypeList} = props;
 
   return (
-    <Grid item sm={3} xl={4}>
+    <Grid item sm={3} xl={3}>
       <Card className={classes.root}>
         <CardActionArea>
           <CardMedia

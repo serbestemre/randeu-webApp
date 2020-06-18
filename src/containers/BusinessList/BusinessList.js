@@ -99,6 +99,7 @@ const list =searchResultList &&
   searchResultList.map((business) => (
     <Grid item key={business._id}>
         <BusinessCard
+        imgUrl={business.imageUrl && business.imageUrl}
         businessOwner={business.populatedBusinessOwners ? business.populatedBusinessOwners[0].fullName : business.businessOwnerList[0].businessOwner.fullName}
           businessId={business._id}
           businessName={business.businessName}

@@ -29,11 +29,11 @@ const userProfile = (props) => {
     return state.auth.userProfile;
   });
 
-  const appointments = [
-    { title: 'Mail New Leads for Follow Up', startDate: '2020-06-17T10:00' },
-    { title: 'Product Meeting', startDate: '2019-06-23T10:30', endDate: '2019-06-23T11:30' },
-    { title: 'Send Territory Sales Breakdown', startDate: '2019-06-23T12:35' },
-  ];
+  // const appointments = [
+  //   { title: 'Mail New Leads for Follow Up', startDate: '2020-06-17T10:00' },
+  //   { title: 'Product Meeting', startDate: '2019-06-23T10:30', endDate: '2019-06-23T11:30' },
+  //   { title: 'Send Territory Sales Breakdown', startDate: '2019-06-23T12:35' },
+  // ];
 
   return (
       <Grid

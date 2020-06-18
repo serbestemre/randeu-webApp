@@ -4,6 +4,7 @@ import * as actions from "../../store/actions/index";
 import Paper from "@material-ui/core/Paper";
 import { green, lightBlue } from "@material-ui/core/colors";
 import { withRouter } from "react-router-dom";
+import WarningDialog from "../../components/WarningDialog/WarningDialog"
 // import BasicLayout from './BasicLayout'
 import {
   ViewState,
@@ -25,12 +26,12 @@ import {
   ViewSwitcher,
   DayView,
   TodayButton,
-  AllDayPanel,
 } from "@devexpress/dx-react-scheduler-material-ui";
 
 const messages = {
   moreInformationLabel: "",
 };
+
 
 const SelectMenu = (props) => {
   console.log("SELECT MENU PROP", props.services);
@@ -70,29 +71,17 @@ const BasicLayout = ({
   );
 };
 
-const isWeekOrMonthView = (viewName) =>
-  viewName === "Week" || viewName === "Month";
 
 let priorityData = [
   { text: "Business Owner", id: "5e8099790c15944a5cb4626b", color: lightBlue },
   { text: "Employee", id: "5e80a7f1b4f67306f848af86", color: green },
 ];
 
-const styles = ({ spacing, palette, typography }) => ({
-  formControlLabel: {
-    padding: spacing(2),
-    paddingLeft: spacing(10),
-  },
-  text: {
-    ...typography.caption,
-    color: palette.text.secondary,
-    fontWeight: "bold",
-    fontSize: "1rem",
-  },
-});
 
 const resourceScheduler = (props) => {
   const dispatch = useDispatch();
+  const [warning, setWarning] = useState(false);
+
   const [data, setData] = useState([]);
   const [currentDate, setCurrentDate] = useState(Date.now());
   const { selectedBusinessId } = props;
@@ -168,9 +157,9 @@ const resourceScheduler = (props) => {
       ),
     [dispatch]
   );
-  const scheduleRequestMessage = useSelector((state) => {
-    return state.schedule.scheduleRequestMessage;
-  });
+  // const scheduleRequestMessage = useSelector((state) => {
+  //   return state.schedule.scheduleRequestMessage;
+  // });
   const token = useSelector((state) => {
     return state.auth.token;
   });
@@ -227,14 +216,34 @@ const resourceScheduler = (props) => {
     setData(appointmentSchedule);
   }, [appointmentSchedule, onInitAppointmentSchedule]);
 
-  const [grouping, setGrouping] = useState([
+  const [grouping] = useState([
     {
       resourceName: "employee",
     },
   ]);
 
+  const handleCancel = () =>{
+    setWarning(false)
+}
+
+const handleLogin = () => {
+    props.history.push("/kullanici/giris");
+}
+
   const commitChanges = ({ added, changed, deleted }) => {
     const { employee, service, startDate, endDate } = added;
+
+    if(!token) {
+      console.log("SHOW DIALOG!")
+      setWarning(true)
+      return;
+    }
+
+    if(token) {
+      console.log("CLOSE DIALOG!")
+      setWarning(false);
+    }
+
 
     if(token) {
       onInitScheduleAppointment(
@@ -250,11 +259,11 @@ const resourceScheduler = (props) => {
     //   onInitUserProfile(token)
     // }
 
-    if (added) {
+    if (added && token) {
       const startingAddedId =
         data.length > 0 ? data[data.length - 1].id + 1 : 0;
       setData([...data, { id: startingAddedId, ...added }]);
-    }
+    } 
     if (changed) {
       const newData = data.map((appointment) =>
         changed[appointment.id]
@@ -274,6 +283,7 @@ const resourceScheduler = (props) => {
 
   return (
     <React.Fragment>
+      <WarningDialog handleCancel={handleCancel} handleLogin={handleLogin} open={warning}/>
       <Paper>
         <Scheduler data={data} locale="tr-TR">
           <ViewState
@@ -290,8 +300,8 @@ const resourceScheduler = (props) => {
             endDayHour={20} // mesait bitiş saati
             cellDuration={30} // randevu aralığı
           />
-          <WeekView startDayHour={8.5} endDayHour={20} />
-          <MonthView />
+          <WeekView  name="Haftalık" startDayHour={8.5} endDayHour={20} />
+          <MonthView name="Aylık" />
 
           <Appointments />
           <Resources data={resources} mainResourceName="employee" />

@@ -6,7 +6,6 @@ import Testimonial from "../../components/Testimonial/Testimonial";
 import BeautyShopImage from "../../assets/images/beauty-shop.jpg";
 import DentistStore from "../../assets/images/dentist-store.jpg";
 import EntertainmentSaloon from "../../assets/images/bowling-saloon.jpg";
-import BusinessRegisterBar from "../../components/UI/BusinessRegisterBar/BusinessRegisterBar";
 import { useTheme } from "@material-ui/core/styles";
 import { makeStyles } from "@material-ui/styles";
 

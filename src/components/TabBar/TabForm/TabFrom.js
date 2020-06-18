@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import {withRouter} from 'react-router-dom';
-
 import { Grid } from "@material-ui/core";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
@@ -11,9 +10,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 
 const TabForm = (props) => {
   const cities = [
-    { title: "İzmir" },
-    { title: "İstanbul" },
-    { title: "Ankara" },
+    { title: "İzmir" }
   ];
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -24,7 +21,7 @@ const TabForm = (props) => {
 
   const classes = useStyles();
   const { searchedType, list, error, optionLabel, textFieldPlaceholder } = props;
-  const [redirect, setRedirect] = useState();
+  const [redirect] = useState();
   const [searchedKeyword, setSearchedKeyWord] = useState();
 
   let searchField = null;

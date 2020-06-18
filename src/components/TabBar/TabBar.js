@@ -97,7 +97,7 @@ useEffect(() => {
 
   return (
     <Grid container justify="center" alignItems={"center"}>
-      <Grid item xs={12} sm={12} md={12} xl={10}>
+      <Grid item xs={12} sm={12} md={12} xl={12}>
         <div className={classes.root}>
           {/* Search Bar Color Preferences */}
           <AppBar position="static" style={{backgroundColor: `${theme.palette.primary.contrastText}`, color:`${theme.palette.secondary.main}`}}>
