@@ -30,7 +30,7 @@ const FeatureCard = (props) => {
   const classes = useStyles();
 
   return (
-    <Grid container item justify="center"  xs={12} sm={10} md={3} xl={4}>
+    <Grid container item justify="center"  xs={12} sm={12} md={3} xl={3}>
       <Card className={classes.root} elevation={0}>
         <CardHeader
           avatar={

@@ -57,7 +57,6 @@ if(isAuthenticated){
       <Route path="/kullanici/aktivasyon"  component={SendActivationLink} />
       <Route path="/account/activate/:uuid" component={ActivateUser} />
       <Route path="/"  exact component={Landing}/>
-      <Redirect to="/"/>
     </Layout>    
     </Switch>
 
