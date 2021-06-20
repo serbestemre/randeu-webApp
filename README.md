@@ -2,6 +2,8 @@
 
 This application is a front-end side of a project created for Izmir University of Economics Computer Engineering Senior Project.
 
+- [Presentation Video](https://www.youtube.com/watch?v=CqdMD2mRvuw&t=2s)
+
 ###### React - Material UI 
 
 - [Backend App Repository](https://github.com/serbestemre/personal-appointment-assistant)
